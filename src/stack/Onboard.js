@@ -46,15 +46,18 @@ Get ready for fun but tricky questions!`,
         {currentIdx === 0 && (
           <Image
             source={require('../../assets/img/onboard/man1.png')}
-            style={{position: 'absolute', bottom: -230}}
+            style={{position: 'absolute', bottom: -250}}
           />
         )}
 
         {currentIdx === 1 && (
-          <Image
-            source={require('../../assets/img/onboard/group.png')}
-            style={{}}
-          />
+          <View>
+            <Gradient />
+            <Image
+              source={require('../../assets/img/onboard/group.png')}
+              style={{}}
+            />
+          </View>
         )}
 
         {currentIdx === 2 && (
@@ -71,9 +74,17 @@ Get ready for fun but tricky questions!`,
         )}
       </View>
       <View style={styles.sectionContainer}>
-        <Text style={{textAlign: 'center', marginBottom: 20}}>
+        <GradientText
+          colors={['#E7931D', '#F4B821', '#DE7319']}
+          style={{
+            fontWeight: '900',
+            fontFamily: 'MontserratAlternates-bold',
+            fontSize: 24,
+            textAlign: 'center',
+            marginBottom: 20,
+          }}>
           {onboard[currentIdx].title}
-        </Text>
+        </GradientText>
         <Text
           style={{
             textAlign: 'center',
@@ -107,10 +118,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     backgroundColor: '#670000',
     borderRadius: 50,
-    paddingTop: 28,
+    paddingTop: 25,
     paddingBottom: 28,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 26,
+    paddingRight: 26,
     // position: 'absolute',
     marginBottom: 27,
   },

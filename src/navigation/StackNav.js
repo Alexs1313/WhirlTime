@@ -7,6 +7,7 @@ import SelectCategory from '../stack/SelectCategory';
 import Game from '../stack/Game';
 import Info from '../stack/Info';
 import Rules from '../stack/Rules';
+import Questions from '../stack/Questions';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const StackNav = () => {
       <Stack.Screen name="Game" component={Game} />
       <Stack.Screen name="Info" component={Info} />
       <Stack.Screen name="Rules" component={Rules} />
+      <Stack.Screen name="Questions" component={Questions} />
     </Stack.Navigator>
   );
 };

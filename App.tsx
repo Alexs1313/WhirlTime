@@ -5,11 +5,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import Onboard from './src/stack/Onboard';
 import {createStackNavigator} from '@react-navigation/stack';
 import Spiner from './src/components/Spiner';
+import Game from './src/stack/Game';
 
 const App = () => {
   return (
     <NavigationContainer>
       <StackNav />
+      {/* <Game /> */}
       {/* <Onboard /> */}
       {/* <Spiner /> */}
     </NavigationContainer>

@@ -1,16 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   ScrollView,
-  Share,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+
 import GradientText from '../components/TextGradient';
 
 const Rules = () => {
@@ -34,9 +31,18 @@ P.S. You can't give hints - I see everything`;
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <Text style={styles.text}>Rules</Text>
+        <GradientText
+          colors={['#E7931D', '#F4B821', '#DE7319']}
+          style={{
+            fontWeight: '900',
+            fontFamily: 'MontserratAlternates-bold',
+            fontSize: 32,
+            marginTop: 10,
+          }}>
+          RULES
+        </GradientText>
       </SafeAreaView>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{marginHorizontal: 15, alignItems: 'center'}}>
           <Image
             source={require('../../assets/img/rules.png')}
@@ -60,13 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#520000',
     alignItems: 'center',
   },
-  title: {
-    fontWeight: '800',
-    fontSize: 28,
-    lineHeight: 36,
-    marginBottom: 20,
-    marginTop: 10,
-  },
+
   textContainer: {
     backgroundColor: '#670000',
     borderRadius: 22,

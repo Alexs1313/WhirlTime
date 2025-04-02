@@ -19,14 +19,14 @@ const Gradient = () => {
           <RadialGradient
             id="grad"
             cx="50%"
-            cy="50%"
-            rx="70%"
+            cy="70%"
+            rx="60%"
             ry="50%"
             fx="50%"
             fy="50%"
             gradientUnits="userSpaceOnUse">
-            <Stop offset="50%" stopColor="#DF9881" stopOpacity="1" />
-            <Stop offset="100%" stopColor="#C41522" stopOpacity="1" />
+            <Stop offset="20%" stopColor="#F4B821" stopOpacity="1" />
+            <Stop offset="100%" stopColor="#520000" stopOpacity="0" />
           </RadialGradient>
         </Defs>
         <Rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" />

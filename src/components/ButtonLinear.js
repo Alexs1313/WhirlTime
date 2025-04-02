@@ -16,7 +16,7 @@ const ButtonLinear = ({text, navigateTo, selectedCat, newPlayers}) => {
     <TouchableOpacity
       activeOpacity={0.7}
       disabled={selectedCat === null}
-      onPress={() => navigation.navigate(navigateTo, newPlayers)}
+      onPress={() => navigation.navigate(navigateTo, {newPlayers, selectedCat})}
       style={styles.container}>
       <LinearGradient
         colors={['#E7931D', '#F4B821', '#DE7319']}

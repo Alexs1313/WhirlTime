@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import {LinearTextGradient} from 'react-native-text-gradient';
+
 const Info = () => {
   const navigation = useNavigation();
   const info = `Whirl Time - answer or miss is an exciting quiz where wit, speed and a little luck will help you become a champion!

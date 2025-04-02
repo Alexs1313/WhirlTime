@@ -11,6 +11,7 @@ import {
 import {TextInput} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
+import GradientText from '../components/TextGradient';
 
 const NewGame = () => {
   const [inputValue, setInputValue] = useState('');
@@ -37,8 +38,18 @@ const NewGame = () => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView>
-        <Text style={{marginBottom: 62}}>New game</Text>
+      <SafeAreaView style={{alignItems: 'center'}}>
+        <GradientText
+          colors={['#E7931D', '#F4B821', '#DE7319']}
+          style={{
+            fontWeight: '900',
+            fontFamily: 'MontserratAlternates-bold',
+            fontSize: 32,
+            marginTop: 22,
+            marginBottom: 72,
+          }}>
+          NEW GAME
+        </GradientText>
       </SafeAreaView>
       <View style={{marginHorizontal: 15}}>
         <View onPress={() => navigation.navigate(navigateTo)}>
