@@ -13,15 +13,18 @@ import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import {questions} from '../data/questions';
+import {useStore} from '../../store/context';
 
 const Questions = ({route}) => {
   const [inputValue, setInputValue] = useState([]);
   const [selectedCat, setSelectedCat] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [findAnswer, setFindAnswer] = useState(false);
 
   const players = route.params;
-  const category = route.params.selectedCat;
+  //   const category = route.params.selectedCat;
+  const {category, setCategory} = useStore();
   const [filtered, setFiltered] = useState(
     questions.filter(question => question.category === category),
   );
@@ -30,6 +33,7 @@ const Questions = ({route}) => {
   const findOutAnswer = () => {
     const isCorrectAnswer = filtered[currentIdx].answer == selectedCat;
     setIsCorrect(isCorrectAnswer);
+    setFindAnswer(true);
   };
 
   return (
@@ -49,54 +53,104 @@ const Questions = ({route}) => {
           </GradientText>
         </View>
 
-        {filtered[currentIdx].options.map((category, idx) => (
-          <TouchableOpacity
-            onPress={() => setSelectedCat(category)}
-            activeOpacity={0.7}
-            key={idx}
-            style={
-              category === selectedCat || selectedCat === null
-                ? styles.newPlayerContainer
-                : styles.inactivePlayerContainer
-            }>
-            <Text
+        {filtered[currentIdx].options.map((category, idx) =>
+          findAnswer ? (
+            <TouchableOpacity
+              onPress={() => setSelectedCat(category)}
+              activeOpacity={0.7}
+              key={idx}
               style={
                 category === selectedCat || selectedCat === null
-                  ? styles.newPlayerContainerText
-                  : styles.inactiveText
+                  ? isCorrect
+                    ? styles.newPlayerContainerCorrect
+                    : styles.newPlayerContainerUnCorrect
+                  : styles.inactivePlayerContainer
               }>
-              {category}
-            </Text>
-            {/* {category === selectedCat && (
-  <LinearGradient
-    colors={['#E7931D', '#F4B821', '#DE7319']}
-    style={styles.addButton}>
-    <Image
-      source={require('../../assets/img/select.png')}
-      style={{
-        backgroundColor: 'transparent',
-      }}
-    />
-  </LinearGradient>
-)} */}
-          </TouchableOpacity>
-        ))}
-
-        {selectedCat !== null && (
-          <View style={{marginTop: 22, marginHorizontal: 20}}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              disabled={selectedCat === null}
-              onPress={() => findOutAnswer()}
-              style={{}}>
-              <LinearGradient
-                colors={['#E7931D', '#F4B821', '#DE7319']}
-                style={styles.linearGradientBtn}>
-                <Text style={styles.buttonText}>Find out the answer</Text>
-              </LinearGradient>
+              <Text
+                style={
+                  category === selectedCat || selectedCat === null
+                    ? styles.newPlayerContainerText
+                    : styles.inactiveText
+                }>
+                {category}
+              </Text>
+              {category === selectedCat && isCorrect && (
+                <LinearGradient
+                  colors={['#E7931D', '#F4B821', '#DE7319']}
+                  style={styles.addButton}>
+                  <Image
+                    source={require('../../assets/img/select.png')}
+                    style={{
+                      backgroundColor: 'transparent',
+                    }}
+                  />
+                </LinearGradient>
+              )}
+              {category === selectedCat && !isCorrect && (
+                <LinearGradient
+                  colors={['#E7931D', '#F4B821', '#DE7319']}
+                  style={styles.addButton}>
+                  <Image
+                    source={require('../../assets/img/inCorrect.png')}
+                    style={{
+                      backgroundColor: 'transparent',
+                    }}
+                  />
+                </LinearGradient>
+              )}
             </TouchableOpacity>
-          </View>
+          ) : (
+            <TouchableOpacity
+              onPress={() => setSelectedCat(category)}
+              activeOpacity={0.7}
+              key={idx}
+              style={
+                category === selectedCat || selectedCat === null
+                  ? styles.newPlayerContainer
+                  : styles.inactivePlayerContainer
+              }>
+              <Text
+                style={
+                  category === selectedCat || selectedCat === null
+                    ? styles.newPlayerContainerText
+                    : styles.inactiveText
+                }>
+                {category}
+              </Text>
+            </TouchableOpacity>
+          ),
         )}
+
+        {selectedCat !== null &&
+          (findAnswer ? (
+            <View style={{marginTop: 22, marginHorizontal: 20}}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                disabled={selectedCat === null}
+                onPress={() => findOutAnswer()}
+                style={{}}>
+                <LinearGradient
+                  colors={['#E7931D', '#F4B821', '#DE7319']}
+                  style={styles.linearGradientBtn}>
+                  <Text style={styles.buttonText}>Continue</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={{marginTop: 22, marginHorizontal: 20}}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                disabled={selectedCat === null}
+                onPress={() => findOutAnswer()}
+                style={{}}>
+                <LinearGradient
+                  colors={['#E7931D', '#F4B821', '#DE7319']}
+                  style={styles.linearGradientBtn}>
+                  <Text style={styles.buttonText}>Find out the answer</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          ))}
       </View>
     </View>
   );
@@ -176,6 +230,19 @@ const styles = StyleSheet.create({
   newPlayerContainerCorrect: {
     height: 60,
     backgroundColor: 'green',
+    width: '100%',
+    borderRadius: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 15,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(231, 147, 29, 1)',
+  },
+  newPlayerContainerUnCorrect: {
+    height: 60,
+    backgroundColor: 'red',
     width: '100%',
     borderRadius: 15,
     flexDirection: 'row',

@@ -12,10 +12,13 @@ import {TextInput} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
+import {useStore} from '../../store/context';
 
 const NewGame = () => {
   const [inputValue, setInputValue] = useState('');
-  const [newPlayers, setNewPlayers] = useState([]);
+  // const [newPlayers, setNewPlayers] = useState([]);
+  const {newPlayers, setNewPlayers} = useStore();
+
   const [toggleInput, setToggleInput] = useState(true);
 
   const addPlayer = () => {
@@ -124,7 +127,7 @@ const NewGame = () => {
             <ButtonLinear
               text={'Next'}
               navigateTo={'SelectCategory'}
-              newPlayers={newPlayers}
+              // newPlayers={newPlayers}
             />
           </View>
         )}

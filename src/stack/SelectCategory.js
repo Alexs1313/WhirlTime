@@ -12,12 +12,13 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
+import {useStore} from '../../store/context';
 
-const SelectCategory = ({route}) => {
+const SelectCategory = () => {
   const [inputValue, setInputValue] = useState([]);
-  const [selectedCat, setSelectedCat] = useState(null);
-  const players = route.params;
-  console.log('route', players);
+  // const [selectedCat, setSelectedCat] = useState(null);
+  const {category, setCategory} = useStore();
+  console.log('categoryScreen', category);
 
   const categories = [
     {
@@ -36,11 +37,6 @@ const SelectCategory = ({route}) => {
       category: 'General knowledge',
     },
   ];
-
-  const filter = () => {
-    if (selectedCat !== '') {
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -71,25 +67,25 @@ const SelectCategory = ({route}) => {
             style={{position: 'absolute', bottom: 20, right: 0}}
           />
         </View>
-        {categories.map((category, idx) => (
+        {categories.map((cat, idx) => (
           <TouchableOpacity
-            onPress={() => setSelectedCat(category.category)}
+            onPress={() => setCategory(cat.category)}
             activeOpacity={0.7}
             key={idx}
             style={
-              category.category === selectedCat || selectedCat === null
+              cat.category === category || category === null
                 ? styles.newPlayerContainer
                 : styles.inactivePlayerContainer
             }>
             <Text
               style={
-                category.category === selectedCat || selectedCat === null
+                cat.category === category || category === null
                   ? styles.newPlayerContainerText
                   : styles.inactiveText
               }>
-              {category.category}
+              {cat.category}
             </Text>
-            {category.category === selectedCat && (
+            {cat.category === category && (
               <LinearGradient
                 colors={['#E7931D', '#F4B821', '#DE7319']}
                 style={styles.addButton}>
@@ -107,8 +103,8 @@ const SelectCategory = ({route}) => {
           <ButtonLinear
             text={'Start Play'}
             navigateTo={'Game'}
-            selectedCat={selectedCat}
-            newPlayers={players}
+            // selectedCat={selectedCat}
+            // newPlayers={players}
           />
         </View>
       </View>

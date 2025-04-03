@@ -1,126 +1,3 @@
-// import {useEffect, useState} from 'react';
-// import {
-//   Animated,
-//   Easing,
-//   Image,
-//   Pressable,
-//   SafeAreaView,
-//   StyleSheet,
-//   Text,
-//   TouchableOpacity,
-//   View,
-// } from 'react-native';
-
-// const Game = ({route}) => {
-//   const [inputValue, setInputValue] = useState([]);
-//   const [selectedCat, setSelectedCat] = useState(null);
-//   const players = route.params;
-//   console.log('gamescreen', players);
-
-//   const spinValue = new Animated.Value(0);
-//   const spin = () => {
-//     spinValue.setValue(0);
-//     Animated.timing(spinValue, {
-//       toValue: 1,
-//       duration: 3500,
-//       easing: Easing.linear,
-//       useNativeDriver: true,
-//     }).start(() => spin());
-//   };
-
-//   // useEffect(() => {
-//   //   spin();
-//   // }, []);
-
-//   const rotate = spinValue.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: ['0deg', '360deg'],
-//   });
-
-//   return (
-//     <View style={styles.container}>
-//       {/* <SafeAreaView>
-//         <Text style={{marginBottom: 62}}>
-//           Attention! We are choosing a player!
-//         </Text>
-//       </SafeAreaView>
-//       <View style={{marginHorizontal: 15}}>
-
-//         <View style={{marginTop: 22}}>
-//           <ButtonLinear text={'Start Play'} />
-//         </View>
-//         {players.map((player, idx) => (
-//           <View key={player.id} style={styles.newPlayerContainer}>
-//             <Text style={styles.newPlayerContainerText}>{player.name}</Text>
-//             <TouchableOpacity
-//               onPress={() => removePlayer(player.id)}></TouchableOpacity>
-//           </View>
-//         ))}
-//       </View> */}
-//       <Animated.View style={{transform: [{rotate}]}}>
-//         <Image source={require('../../assets/img/mainLoader.png')} />
-//       </Animated.View>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#520000',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   linearGradient: {
-//     height: 106,
-//     width: '100%',
-//     borderRadius: 24,
-//     marginBottom: 20,
-//   },
-//   buttonText: {
-//     fontSize: 24,
-//     fontWeight: '900',
-//     fontFamily: 'MontserratAlternates-bold',
-//     color: '#4A1A13',
-//     backgroundColor: 'transparent',
-//   },
-
-//   addButton: {
-//     width: 39,
-//     height: 39,
-//     borderRadius: 15,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   newPlayerContainer: {
-//     height: 60,
-//     width: '30%',
-//     backgroundColor: 'rgba(128, 0, 0, 0.45)',
-//     borderRadius: 15,
-//     alignItems: 'center',
-//     padding: 15,
-//     marginBottom: 12,
-//     borderWidth: 1,
-//     borderColor: 'rgba(231, 147, 29, 1)',
-//   },
-
-//   newPlayerContainerText: {
-//     fontSize: 20,
-//     fontWeight: '600',
-//     fontFamily: 'MontserratAlternates-bold',
-//     color: '#fff',
-//   },
-//   inactiveText: {
-//     fontSize: 20,
-//     fontWeight: '600',
-//     fontFamily: 'MontserratAlternates-bold',
-//     color: 'rgba(255, 255, 255, 1)',
-//     opacity: 0.7,
-//   },
-// });
-
-// export default Game;
-
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
@@ -136,18 +13,23 @@ import {
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import LinearGradient from 'react-native-linear-gradient';
+import {useIsFocused} from '@react-navigation/native';
+import {useStore} from '../../store/context';
 
 const Game = ({route}) => {
   const rotation = useRef(new Animated.Value(0)).current;
   const [isAnimating, setIsAnimating] = useState(false);
   const [randomIdx, setRandomIdx] = useState(0);
   const [stopLoader, setStopLoader] = useState(false);
-  const players = route.params.newPlayers.newPlayers;
+  // const players = route.params.newPlayers.newPlayers;
+  const {newPlayers} = useStore();
+  console.log('players', newPlayers);
   const category = route.params.selectedCat;
-  console.log('category', category);
+
+  const isFocused = useIsFocused();
 
   const randomIndex = () => {
-    const random = Math.floor(Math.random() * (players.length - 1));
+    const random = Math.floor(Math.random() * (newPlayers.length - 1));
     setRandomIdx(random);
     console.log('randome', random);
   };
@@ -212,7 +94,7 @@ WE ARE CHOOSING A PLAYER!`
                 justifyContent: 'space-between',
               }}>
               <Text style={styles.newPlayerContainerText}>
-                {players[randomIdx].name}
+                {newPlayers[randomIdx].name}
               </Text>
               <LinearGradient
                 colors={['#E7931D', '#F4B821', '#DE7319']}
@@ -228,7 +110,7 @@ WE ARE CHOOSING A PLAYER!`
           </View>
         )}
 
-        {players.map(
+        {newPlayers.map(
           (player, idx) =>
             !stopLoader && (
               <View
@@ -267,6 +149,7 @@ WE ARE CHOOSING A PLAYER!`
             text={'Show question'}
             navigateTo={'Questions'}
             selectedCat={category}
+            // newPlayers={players}
           />
         </View>
       )}
