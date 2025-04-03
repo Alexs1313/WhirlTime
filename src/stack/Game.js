@@ -16,15 +16,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useIsFocused} from '@react-navigation/native';
 import {useStore} from '../../store/context';
 
-const Game = ({route}) => {
+const Game = () => {
   const rotation = useRef(new Animated.Value(0)).current;
   const [isAnimating, setIsAnimating] = useState(false);
   const [randomIdx, setRandomIdx] = useState(0);
   const [stopLoader, setStopLoader] = useState(false);
   // const players = route.params.newPlayers.newPlayers;
   const {newPlayers} = useStore();
-  console.log('players', newPlayers);
-  const category = route.params.selectedCat;
 
   const isFocused = useIsFocused();
 
@@ -148,7 +146,7 @@ WE ARE CHOOSING A PLAYER!`
           <ButtonLinear
             text={'Show question'}
             navigateTo={'Questions'}
-            selectedCat={category}
+            // selectedCat={category}
             // newPlayers={players}
           />
         </View>

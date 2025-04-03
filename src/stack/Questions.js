@@ -14,16 +14,16 @@ import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import {questions} from '../data/questions';
 import {useStore} from '../../store/context';
+import {useNavigation} from '@react-navigation/native';
 
-const Questions = ({route}) => {
+const Questions = () => {
   const [inputValue, setInputValue] = useState([]);
   const [selectedCat, setSelectedCat] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [findAnswer, setFindAnswer] = useState(false);
+  const navigation = useNavigation();
 
-  const players = route.params;
-  //   const category = route.params.selectedCat;
   const {category, setCategory} = useStore();
   const [filtered, setFiltered] = useState(
     questions.filter(question => question.category === category),
@@ -127,7 +127,7 @@ const Questions = ({route}) => {
               <TouchableOpacity
                 activeOpacity={0.7}
                 disabled={selectedCat === null}
-                onPress={() => findOutAnswer()}
+                onPress={() => navigation.navigate('Game')}
                 style={{}}>
                 <LinearGradient
                   colors={['#E7931D', '#F4B821', '#DE7319']}
