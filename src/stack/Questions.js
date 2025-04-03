@@ -1,7 +1,6 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,14 +9,13 @@ import {
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import ButtonLinear from '../components/ButtonLinear';
+
 import GradientText from '../components/TextGradient';
 import {questions} from '../data/questions';
 import {useStore} from '../../store/context';
 import {useNavigation} from '@react-navigation/native';
 
 const Questions = () => {
-  const [inputValue, setInputValue] = useState([]);
   const [selectedCat, setSelectedCat] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -28,7 +26,25 @@ const Questions = () => {
   const [filtered, setFiltered] = useState(
     questions.filter(question => question.category === category),
   );
-  console.log('isCorrect', isCorrect);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(15);
+
+  useEffect(() => {
+    let timerInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      } else {
+        if (minutes === 0) {
+          clearInterval(timerInterval);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
+  }, [minutes, seconds]);
 
   const findOutAnswer = () => {
     const isCorrectAnswer = filtered[currentIdx].answer == selectedCat;
@@ -38,7 +54,46 @@ const Questions = () => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{alignItems: 'center'}}></SafeAreaView>
+      <SafeAreaView style={{alignItems: 'center'}}>
+        {!findAnswer ? (
+          <View style={styles.timerContainer}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={styles.timerText}>{`${minutes
+                .toString()
+                .padStart(2, '0')}:${seconds
+                .toString()
+                .padStart(2, '0')}`}</Text>
+              <LinearGradient
+                colors={['#E7931D', '#F4B821', '#DE7319']}
+                style={styles.addButton}>
+                <Image
+                  source={require('../../assets/img/timer.png')}
+                  style={{
+                    backgroundColor: 'transparent',
+                  }}
+                />
+              </LinearGradient>
+            </View>
+          </View>
+        ) : (
+          <GradientText
+            colors={['#E7931D', '#F4B821', '#DE7319']}
+            style={{
+              fontWeight: '900',
+              fontFamily: 'MontserratAlternates-bold',
+              fontSize: 32,
+              marginTop: 22,
+              marginBottom: 72,
+            }}>
+            {isCorrect ? 'KEEP IT UP!' : 'OH, NOT THIS TIME!'}
+          </GradientText>
+        )}
+      </SafeAreaView>
       <View style={{marginHorizontal: 15}}>
         <View style={styles.qustionContainer}>
           <GradientText
@@ -55,69 +110,73 @@ const Questions = () => {
 
         {filtered[currentIdx].options.map((category, idx) =>
           findAnswer ? (
-            <TouchableOpacity
-              onPress={() => setSelectedCat(category)}
-              activeOpacity={0.7}
-              key={idx}
-              style={
-                category === selectedCat || selectedCat === null
-                  ? isCorrect
-                    ? styles.newPlayerContainerCorrect
-                    : styles.newPlayerContainerUnCorrect
-                  : styles.inactivePlayerContainer
-              }>
-              <Text
+            <View key={idx}>
+              <TouchableOpacity
+                disabled={findAnswer}
+                onPress={() => setSelectedCat(category)}
+                activeOpacity={0.7}
                 style={
                   category === selectedCat || selectedCat === null
-                    ? styles.newPlayerContainerText
-                    : styles.inactiveText
+                    ? isCorrect
+                      ? styles.newPlayerContainerCorrect
+                      : styles.newPlayerContainerUnCorrect
+                    : styles.inactivePlayerContainer
                 }>
-                {category}
-              </Text>
-              {category === selectedCat && isCorrect && (
-                <LinearGradient
-                  colors={['#E7931D', '#F4B821', '#DE7319']}
-                  style={styles.addButton}>
-                  <Image
-                    source={require('../../assets/img/select.png')}
-                    style={{
-                      backgroundColor: 'transparent',
-                    }}
-                  />
-                </LinearGradient>
-              )}
-              {category === selectedCat && !isCorrect && (
-                <LinearGradient
-                  colors={['#E7931D', '#F4B821', '#DE7319']}
-                  style={styles.addButton}>
-                  <Image
-                    source={require('../../assets/img/inCorrect.png')}
-                    style={{
-                      backgroundColor: 'transparent',
-                    }}
-                  />
-                </LinearGradient>
-              )}
-            </TouchableOpacity>
+                <Text
+                  style={
+                    category === selectedCat || selectedCat === null
+                      ? styles.newPlayerContainerText
+                      : styles.inactiveText
+                  }>
+                  {category}
+                </Text>
+                {category === selectedCat && isCorrect && (
+                  <LinearGradient
+                    colors={['#E7931D', '#F4B821', '#DE7319']}
+                    style={styles.addButton}>
+                    <Image
+                      source={require('../../assets/img/select.png')}
+                      style={{
+                        backgroundColor: 'transparent',
+                      }}
+                    />
+                  </LinearGradient>
+                )}
+                {category === selectedCat && !isCorrect && (
+                  <LinearGradient
+                    colors={['#E7931D', '#F4B821', '#DE7319']}
+                    style={styles.addButton}>
+                    <Image
+                      source={require('../../assets/img/inCorrect.png')}
+                      style={{
+                        backgroundColor: 'transparent',
+                      }}
+                    />
+                  </LinearGradient>
+                )}
+              </TouchableOpacity>
+            </View>
           ) : (
-            <TouchableOpacity
-              onPress={() => setSelectedCat(category)}
-              activeOpacity={0.7}
-              key={idx}
-              style={
-                category === selectedCat || selectedCat === null
-                  ? styles.newPlayerContainer
-                  : styles.inactivePlayerContainer
-              }>
-              <Text
+            <View>
+              <TouchableOpacity
+                onPress={() => setSelectedCat(category)}
+                activeOpacity={0.7}
+                key={idx}
                 style={
                   category === selectedCat || selectedCat === null
-                    ? styles.newPlayerContainerText
-                    : styles.inactiveText
+                    ? styles.newPlayerContainer
+                    : styles.inactivePlayerContainer
                 }>
-                {category}
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={
+                    category === selectedCat || selectedCat === null
+                      ? styles.newPlayerContainerText
+                      : styles.inactiveText
+                  }>
+                  {category}
+                </Text>
+              </TouchableOpacity>
+            </View>
           ),
         )}
 
@@ -165,6 +224,25 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 24,
     marginBottom: 20,
+  },
+  timerContainer: {
+    height: 60,
+    width: '30%',
+    borderRadius: 15,
+    backgroundColor: '#800000',
+    borderWidth: 1,
+    borderColor: '#E7931D',
+    padding: 10,
+    marginBottom: 40,
+    marginTop: 20,
+  },
+  timerText: {
+    fontSize: 20,
+    fontWeight: '600',
+    fontFamily: 'MontserratAlternates-bold',
+    textAlign: 'center',
+    marginLeft: 5,
+    color: '#fff',
   },
   linearGradientBtn: {
     height: 95,

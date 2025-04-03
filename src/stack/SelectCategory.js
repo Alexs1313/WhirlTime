@@ -15,10 +15,7 @@ import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
 
 const SelectCategory = () => {
-  const [inputValue, setInputValue] = useState([]);
-  // const [selectedCat, setSelectedCat] = useState(null);
   const {category, setCategory} = useStore();
-  console.log('categoryScreen', category);
 
   const categories = [
     {
@@ -100,12 +97,7 @@ const SelectCategory = () => {
           </TouchableOpacity>
         ))}
         <View style={{marginTop: 22}}>
-          <ButtonLinear
-            text={'Start Play'}
-            navigateTo={'Game'}
-            // selectedCat={selectedCat}
-            // newPlayers={players}
-          />
+          <ButtonLinear text={'Start Play'} navigateTo={'Game'} />
         </View>
       </View>
     </View>

@@ -1,19 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
-  Button,
   StyleSheet,
   View,
   Image,
   Easing,
   SafeAreaView,
   Text,
-  TouchableOpacity,
 } from 'react-native';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import LinearGradient from 'react-native-linear-gradient';
-import {useIsFocused} from '@react-navigation/native';
+
 import {useStore} from '../../store/context';
 
 const Game = () => {
@@ -21,10 +19,7 @@ const Game = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [randomIdx, setRandomIdx] = useState(0);
   const [stopLoader, setStopLoader] = useState(false);
-  // const players = route.params.newPlayers.newPlayers;
   const {newPlayers} = useStore();
-
-  const isFocused = useIsFocused();
 
   const randomIndex = () => {
     const random = Math.floor(Math.random() * (newPlayers.length - 1));
@@ -143,12 +138,7 @@ WE ARE CHOOSING A PLAYER!`
       )}
       {stopLoader && (
         <View style={{marginTop: 88, width: '85%'}}>
-          <ButtonLinear
-            text={'Show question'}
-            navigateTo={'Questions'}
-            // selectedCat={category}
-            // newPlayers={players}
-          />
+          <ButtonLinear text={'Show question'} navigateTo={'Questions'} />
         </View>
       )}
     </View>
