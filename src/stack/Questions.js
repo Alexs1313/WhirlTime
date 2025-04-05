@@ -38,6 +38,8 @@ const Questions = () => {
     newPlayers,
     savePlayers,
     playersStore,
+    setNewPlayers,
+    setPlayersStore,
   } = useStore();
   const [filtered, setFiltered] = useState(
     questions.filter(question => question.category === category),
@@ -46,11 +48,11 @@ const Questions = () => {
   const [seconds, setSeconds] = useState(15);
   const [plusOne, setPlusOne] = useState(0);
 
-  console.log('filtered', filtered);
+  console.log('плеер в cтор', playersStore);
 
-  // useEffect(() => {
-  //   savePlayers(newPlayers);
-  // }, []);
+  useEffect(() => {
+    setScore(score + 1);
+  }, []);
 
   //   const ref = useRef(score);
 
@@ -83,24 +85,24 @@ const Questions = () => {
     setIsCorrect(isCorrectAnswer);
     setFindAnswer(true);
 
-    if (randomIdx === 0) {
-      console.log('index 0');
-      if (isCorrectAnswer) {
-        setScore(prev => prev + 1);
-      }
-    } else if (randomIdx === 1) {
-      if (isCorrectAnswer) {
-        setScore1(prev => prev + 1);
-      }
-    } else if (randomIdx === 2) {
-      console.log('index 2');
-    } else if (randomIdx === 3) {
-      console.log('index 3');
-    } else if (randomIdx === 4) {
-      console.log('index 4');
-    } else if (randomIdx === 5) {
-      console.log('index 5');
-    }
+    // if (randomIdx === 0) {
+    //   console.log('index 0');
+    //   if (isCorrectAnswer) {
+    //     setScore(prev => prev + 1);
+    //   }
+    // } else if (randomIdx === 1) {
+    //   if (isCorrectAnswer) {
+    //     setScore1(prev => prev + 1);
+    //   }
+    // } else if (randomIdx === 2) {
+    //   console.log('index 2');
+    // } else if (randomIdx === 3) {
+    //   console.log('index 3');
+    // } else if (randomIdx === 4) {
+    //   console.log('index 4');
+    // } else if (randomIdx === 5) {
+    //   console.log('index 5');
+    // }
 
     // const newPlayer = {
     //   ...filteredPlayer,
@@ -111,16 +113,19 @@ const Questions = () => {
     //   return idx === randomIdx;
     // });
 
-    const findSelectedPlayer = newPlayers.map((player, idx) => {
-      if (idx === randomIdx) {
+    const findSelectedPlayer = playersStore.map((player, idx) => {
+      if (randomIdx === idx) {
         return {
           ...player,
-          score: score + 1,
+          score: player.score + 1,
         };
       }
       return player;
     });
-    console.log(findSelectedPlayer);
+
+    setPlayersStore(findSelectedPlayer);
+    savePlayers(findSelectedPlayer);
+    console.log('playersStore', findSelectedPlayer);
 
     // const stats = newPlayers.reduce((acc, player, idx) => {
     //   console.log('acc', acc);

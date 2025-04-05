@@ -37,14 +37,14 @@ How many players are on a football team on the field?`,
     answer: 'A) 11',
     category: 'Sport',
   },
-  // {
-  //   id: 5,
-  //   question: `
-  //   How many players are on a football team on the field?`,
-  //   options: ['A) 11', 'B) 10', 'C)12', 'D)9'],
-  //   answer: 'A) 11',
-  //   category: 'Sport',
-  // },
+  {
+    id: 5,
+    question: `
+    How many players are on a football team on the field?`,
+    options: ['A) 11', 'B) 10', 'C)12', 'D)9'],
+    answer: 'A) 11',
+    category: 'Sport',
+  },
   // {
   //   id: 6,
   //   question: `

@@ -27,6 +27,7 @@ const NewGame = () => {
     setNewPlayers([]);
     setCategory(null);
     setCurrentIdx(0);
+    AsyncStorage.clear();
   }, []);
 
   const addPlayer = () => {

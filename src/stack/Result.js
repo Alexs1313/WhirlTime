@@ -1,7 +1,5 @@
-import {useEffect, useState} from 'react';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,40 +8,19 @@ import {
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import ButtonLinear from '../components/ButtonLinear';
+
 import GradientText from '../components/TextGradient';
-import {useStore, newPlayers} from '../../store/context';
+import {useStore} from '../../store/context';
 import {useNavigation} from '@react-navigation/native';
+import {useEffect} from 'react';
 
 const Result = () => {
-  const {
-    category,
-    setCategory,
-    getPlayers,
-    playersStore,
-    setPlayersStore,
-    setNewPlayers,
-  } = useStore();
+  const {playersStore, getScore} = useStore();
   const navigation = useNavigation();
-  console.log('playersStore', playersStore);
 
-  const categories = [
-    {
-      category: 'Movie',
-    },
-    {
-      category: 'Sport',
-    },
-    {
-      category: 'Books',
-    },
-    {
-      category: 'Geography',
-    },
-    {
-      category: 'General knowledge',
-    },
-  ];
+  //   useEffect(() => {
+  //     getScore();
+  //   }, []);
 
   return (
     <View style={styles.container}>
@@ -75,12 +52,9 @@ const Result = () => {
           />
         </View>
         {playersStore.map((player, idx) => (
-          <TouchableOpacity
-            // onPress={() => setCategory(cat.category)}
-            // activeOpacity={0.7}
-            key={idx}
-            style={styles.newPlayerContainer}>
+          <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
             <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
+            <Text style={styles.newPlayerContainerScore}>{player?.score}</Text>
           </TouchableOpacity>
         ))}
         <View style={{marginTop: 22}}>
@@ -91,8 +65,8 @@ const Result = () => {
             style={styles.container}>
             <LinearGradient
               colors={['#E7931D', '#F4B821', '#DE7319']}
-              style={styles.linearGradient}>
-              <Text style={styles.buttonText}>go home</Text>
+              style={styles.linearGradientButton}>
+              <Text style={styles.buttonTextGoHome}>go home</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -140,6 +114,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',
   },
+  newPlayerContainerScore: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+
+    color: '#fff',
+  },
   inactivePlayerContainer: {
     height: 60,
     backgroundColor: 'rgba(128, 0, 0, 0.45)',
@@ -167,7 +148,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 1)',
     opacity: 0.7,
   },
-  linearGradient: {
+  linearGradientButton: {
     height: 95,
     width: '100%',
     borderRadius: 24,
@@ -180,7 +161,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0.5,
   },
-  buttonText: {
+  buttonTextGoHome: {
     fontSize: 24,
     fontWeight: '900',
     fontFamily: 'MontserratAlternates-bold',

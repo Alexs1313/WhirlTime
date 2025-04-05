@@ -19,11 +19,30 @@ export const StoreProvider = ({children}) => {
 
   useEffect(() => {
     getPlayers();
+    // savePlayers(playersStore);
   }, [score]);
 
-  // useEffect(() => {
-  //   setCategory(null);
-  // }, [newPlayers]);
+  // const totalScore = [score, score1];
+
+  // const saveScore = async players => {
+  //   try {
+  //     await AsyncStorage.setItem('score', JSON.stringify(totalScore));
+  //     console.log('saved SCORE');
+  //   } catch (error) {
+  //     console.log('err to save players', error);
+  //   }
+  // };
+
+  // const getScore = async () => {
+  //   try {
+  //     const data = await AsyncStorage.getItem('score');
+  //     const players = data != null ? JSON.parse(data) : [];
+  //     console.log('score from storage', score);
+  //     // setPlayersStore(players);
+  //   } catch (error) {
+  //     console.log('err to save players', error);
+  //   }
+  // };
 
   const savePlayers = async players => {
     try {
@@ -74,6 +93,7 @@ export const StoreProvider = ({children}) => {
     getPlayers,
     playersStore,
     removePlayers,
+    setPlayersStore,
   };
   return (
     <StoreContext.Provider value={value}>{children}</StoreContext.Provider>

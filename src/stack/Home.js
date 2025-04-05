@@ -21,9 +21,9 @@ const Home = () => {
   //   console.log('asyncstorage CLEAR');
   // }, []);
 
-  useEffect(() => {
-    console.log('isFocused');
-  }, [isFocused]);
+  // useEffect(() => {
+  //   console.log('isFocused');
+  // }, [isFocused]);
 
   return (
     <View style={styles.container}>
