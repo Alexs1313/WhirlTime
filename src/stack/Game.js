@@ -7,25 +7,39 @@ import {
   Easing,
   SafeAreaView,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import LinearGradient from 'react-native-linear-gradient';
+
+import {questions} from '../data/questions';
+
+import {useNavigation} from '@react-navigation/native';
 
 import {useStore} from '../../store/context';
 
 const Game = () => {
   const rotation = useRef(new Animated.Value(0)).current;
   const [isAnimating, setIsAnimating] = useState(false);
-  const [randomIdx, setRandomIdx] = useState(0);
   const [stopLoader, setStopLoader] = useState(false);
   const {newPlayers} = useStore();
+  const navigation = useNavigation();
+  const {setCurrentIdx, randomIdx, setRandomIdx, savePlayers} = useStore();
+
+  console.log('randomIdx', randomIdx);
 
   const randomIndex = () => {
-    const random = Math.floor(Math.random() * (newPlayers.length - 1));
+    const random = Math.floor(Math.random() * newPlayers.length);
     setRandomIdx(random);
-    console.log('randome', random);
+    // savePlayers(newPlayers);
+    // const filtered = newPlayers.find(
+    //   player => player.name === newPlayers[random].name,
+    // );
+    // setFilteredPlayer(filtered);
   };
+
+  // console.log('randomindex', randomIdx);
 
   useEffect(() => {
     const startRotation = () => {
@@ -138,7 +152,18 @@ WE ARE CHOOSING A PLAYER!`
       )}
       {stopLoader && (
         <View style={{marginTop: 88, width: '85%'}}>
-          <ButtonLinear text={'Show question'} navigateTo={'Questions'} />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+              navigation.navigate('Questions'), setCurrentIdx(prev => prev + 1);
+            }}
+            style={styles.container}>
+            <LinearGradient
+              colors={['#E7931D', '#F4B821', '#DE7319']}
+              style={styles.linearGradient}>
+              <Text style={styles.buttonText}>Show question</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -155,6 +180,29 @@ const styles = StyleSheet.create({
     marginTop: 60,
     // width: 100,
     // height: 100,
+  },
+  linearGradient: {
+    height: 95,
+    width: '100%',
+    borderRadius: 24,
+    marginBottom: 24,
+    shadowColor: 'rgba(179, 179, 179, 0.25)',
+    shadowOffset: {
+      width: 6,
+      height: 7,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 0.5,
+  },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    textAlign: 'center',
+    margin: 10,
+    color: '#4A1A13',
+    backgroundColor: 'transparent',
+    marginTop: 33,
   },
   newPlayerContainer: {
     height: 60,

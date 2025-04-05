@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -13,13 +13,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NewGame = () => {
   const [inputValue, setInputValue] = useState('');
   // const [newPlayers, setNewPlayers] = useState([]);
-  const {newPlayers, setNewPlayers} = useStore();
+  const {newPlayers, setNewPlayers, setCategory, setCurrentIdx} = useStore();
+  const {score, savePlayers} = useStore();
 
   const [toggleInput, setToggleInput] = useState(true);
+
+  useEffect(() => {
+    setNewPlayers([]);
+    setCategory(null);
+    setCurrentIdx(0);
+  }, []);
 
   const addPlayer = () => {
     setToggleInput(!toggleInput);
@@ -29,6 +37,7 @@ const NewGame = () => {
     const newPlayer = {
       name: inputValue,
       id: Date.now(),
+      score: 0,
     };
     setNewPlayers([...newPlayers, newPlayer]);
     setInputValue('');

@@ -12,17 +12,12 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
-import {useStore} from '../../store/context';
+import {useStore, newPlayers} from '../../store/context';
 
-const SelectCategory = () => {
-  const {category, setCategory, newPlayers, savePlayers} = useStore();
+const Leaders = ({route}) => {
+  const {category, setCategory, playersStore} = useStore();
 
-  useEffect(() => {
-    savePlayers(newPlayers);
-    setCategory(null);
-  }, []);
-
-  console.log('category', category);
+  console.log('playersStore', playersStore);
 
   const categories = [
     {
@@ -54,7 +49,7 @@ const SelectCategory = () => {
             marginTop: 22,
             marginBottom: 72,
           }}>
-          NEW GAME
+          LEADERS
         </GradientText>
       </SafeAreaView>
       <View style={{marginHorizontal: 15}}>
@@ -63,44 +58,17 @@ const SelectCategory = () => {
             colors={['#E7931D', '#F4B821', '#DE7319']}
             style={styles.linearGradient}></LinearGradient>
           <View style={{position: 'absolute', top: 17, left: 24}}>
-            <Text style={styles.buttonText}>Nice!</Text>
-            <Text style={styles.buttonText}>Select a category</Text>
+            <Text style={styles.buttonText}>The winner</Text>
+            <Text style={styles.buttonText}>is !</Text>
           </View>
           <Image
             source={require('../../assets/img/categoryMan2.png')}
             style={{position: 'absolute', bottom: 20, right: 0}}
           />
         </View>
-        {categories.map((cat, idx) => (
-          <TouchableOpacity
-            onPress={() => setCategory(cat.category)}
-            activeOpacity={0.7}
-            key={idx}
-            style={
-              cat.category === category || category === null
-                ? styles.newPlayerContainer
-                : styles.inactivePlayerContainer
-            }>
-            <Text
-              style={
-                cat.category === category || category === null
-                  ? styles.newPlayerContainerText
-                  : styles.inactiveText
-              }>
-              {cat.category}
-            </Text>
-            {cat.category === category && (
-              <LinearGradient
-                colors={['#E7931D', '#F4B821', '#DE7319']}
-                style={styles.addButton}>
-                <Image
-                  source={require('../../assets/img/select.png')}
-                  style={{
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </LinearGradient>
-            )}
+        {playersStore.map((player, idx) => (
+          <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
+            <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
           </TouchableOpacity>
         ))}
         <View style={{marginTop: 22}}>
@@ -179,4 +147,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectCategory;
+export default Leaders;

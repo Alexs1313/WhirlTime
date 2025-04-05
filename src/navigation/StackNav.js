@@ -8,12 +8,16 @@ import Game from '../stack/Game';
 import Info from '../stack/Info';
 import Rules from '../stack/Rules';
 import Questions from '../stack/Questions';
+import Result from '../stack/Result';
+import Leaders from '../stack/Leaders';
 
 const Stack = createStackNavigator();
 
 const StackNav = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Home">
       {/* <Stack.Screen name="Onboard" component={Onboard} /> */}
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="NewGame" component={NewGame} />
@@ -22,6 +26,8 @@ const StackNav = () => {
       <Stack.Screen name="Info" component={Info} />
       <Stack.Screen name="Rules" component={Rules} />
       <Stack.Screen name="Questions" component={Questions} />
+      <Stack.Screen name="Result" component={Result} />
+      <Stack.Screen name="Leaders" component={Leaders} />
     </Stack.Navigator>
   );
 };

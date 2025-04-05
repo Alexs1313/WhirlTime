@@ -9,9 +9,13 @@ import {
 } from 'react-native';
 
 import GradientText from '../components/TextGradient';
+import {useStore} from '../../store/context';
 
 const Rules = () => {
   const navigation = useNavigation();
+  const {score} = useStore();
+  console.log('score', score);
+
   const info = `Whirl Time - answer or miss is an exciting quiz where wit, speed and a little luck will help you become a champion!
 Play with friends, choose topics, answer tricky questions and prove that you are the brains of the company
 

@@ -7,8 +7,24 @@ import {
   View,
 } from 'react-native';
 import ButtonLinear from '../components/ButtonLinear';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect, useState} from 'react';
+import {useStore} from '../../store/context';
+import {useIsFocused} from '@react-navigation/native';
 
 const Home = () => {
+  const {removePlayers} = useStore();
+  const isFocused = useIsFocused();
+
+  // useEffect(() => {
+  //   AsyncStorage.clear();
+  //   console.log('asyncstorage CLEAR');
+  // }, []);
+
+  useEffect(() => {
+    console.log('isFocused');
+  }, [isFocused]);
+
   return (
     <View style={styles.container}>
       <SafeAreaView
@@ -25,7 +41,7 @@ const Home = () => {
       <View style={styles.buttonWrap}>
         <ButtonLinear text={'New game'} navigateTo={'NewGame'} />
         <ButtonLinear text={'Rules'} navigateTo={'Rules'} />
-        <ButtonLinear text={'Leaders'} />
+        <ButtonLinear text={'Leaders'} navigateTo={'Leaders'} />
         <ButtonLinear text={'Info'} navigateTo={'Info'} />
       </View>
     </View>

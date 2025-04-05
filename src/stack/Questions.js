@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -17,39 +17,133 @@ import {useNavigation} from '@react-navigation/native';
 
 const Questions = () => {
   const [selectedCat, setSelectedCat] = useState(null);
-  const [currentIdx, setCurrentIdx] = useState(0);
+  //   const [currentIdx, setCurrentIdx] = useState(0);
+  const {currentIdx, setCurrentIdx} = useStore(0);
   const [isCorrect, setIsCorrect] = useState(false);
+  //   const [score, setScore] = useState(0);
   const [findAnswer, setFindAnswer] = useState(false);
+
   const navigation = useNavigation();
 
-  const {category, setCategory} = useStore();
+  const {
+    category,
+    setCategory,
+    setFilteredPlayer,
+    filteredPlayer,
+    score,
+    setScore,
+    score1,
+    setScore1,
+    randomIdx,
+    newPlayers,
+    savePlayers,
+    playersStore,
+  } = useStore();
   const [filtered, setFiltered] = useState(
     questions.filter(question => question.category === category),
   );
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(15);
+  const [plusOne, setPlusOne] = useState(0);
 
-  useEffect(() => {
-    let timerInterval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      } else {
-        if (minutes === 0) {
-          clearInterval(timerInterval);
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-        }
-      }
-    }, 1000);
+  console.log('filtered', filtered);
 
-    return () => clearInterval(timerInterval);
-  }, [minutes, seconds]);
+  // useEffect(() => {
+  //   savePlayers(newPlayers);
+  // }, []);
+
+  //   const ref = useRef(score);
+
+  //   console.log('newPlayers', newPlayers);
+  //   console.log('randomIdx', randomIdx);
+
+  //   useEffect(() => {
+  //     setPlusOne(score + 1);
+  //   }, [findOutAnswer]);
+
+  //   useEffect(() => {
+  //     let timerInterval = setInterval(() => {
+  //       if (seconds > 0) {
+  //         setSeconds(seconds - 1);
+  //       } else {
+  //         if (minutes === 0) {
+  //           clearInterval(timerInterval);
+  //         } else {
+  //           setMinutes(minutes - 1);
+  //           setSeconds(59);
+  //         }
+  //       }
+  //     }, 1000);
+
+  //     return () => clearInterval(timerInterval);
+  //   }, []);
 
   const findOutAnswer = () => {
     const isCorrectAnswer = filtered[currentIdx].answer == selectedCat;
     setIsCorrect(isCorrectAnswer);
     setFindAnswer(true);
+
+    if (randomIdx === 0) {
+      console.log('index 0');
+      if (isCorrectAnswer) {
+        setScore(prev => prev + 1);
+      }
+    } else if (randomIdx === 1) {
+      if (isCorrectAnswer) {
+        setScore1(prev => prev + 1);
+      }
+    } else if (randomIdx === 2) {
+      console.log('index 2');
+    } else if (randomIdx === 3) {
+      console.log('index 3');
+    } else if (randomIdx === 4) {
+      console.log('index 4');
+    } else if (randomIdx === 5) {
+      console.log('index 5');
+    }
+
+    // const newPlayer = {
+    //   ...filteredPlayer,
+    //   score: score,
+    // };
+    // setScore(score + 1);
+    // const filter = newPlayers.filter((_, idx) => {
+    //   return idx === randomIdx;
+    // });
+
+    const findSelectedPlayer = newPlayers.map((player, idx) => {
+      if (idx === randomIdx) {
+        return {
+          ...player,
+          score: score + 1,
+        };
+      }
+      return player;
+    });
+    console.log(findSelectedPlayer);
+
+    // const stats = newPlayers.reduce((acc, player, idx) => {
+    //   console.log('acc', acc);
+    //   if (idx === randomIdx) {
+    //     acc.player[score] += 1;
+    //     return acc;
+    //   }
+
+    //   acc.player[score] = 0;
+    //   return acc;
+    // }, {});
+
+    // console.log('stats', stats);
+
+    // const findSelectedPlayer = filter.reduce((acc, player) => {
+    //   return {
+    //     ...player,
+    //     score: acc + 1,
+    //   };
+    // }, 0);
+    // console.log('findSelectedPlayer', findSelectedPlayer);
+
+    // setFilteredPlayer(newPlayer);
   };
 
   return (
@@ -113,6 +207,7 @@ const Questions = () => {
             <View key={idx}>
               <TouchableOpacity
                 disabled={findAnswer}
+                key={idx}
                 onPress={() => setSelectedCat(category)}
                 activeOpacity={0.7}
                 style={
@@ -157,7 +252,7 @@ const Questions = () => {
               </TouchableOpacity>
             </View>
           ) : (
-            <View>
+            <View key={idx}>
               <TouchableOpacity
                 onPress={() => setSelectedCat(category)}
                 activeOpacity={0.7}
@@ -186,7 +281,13 @@ const Questions = () => {
               <TouchableOpacity
                 activeOpacity={0.7}
                 disabled={selectedCat === null}
-                onPress={() => navigation.navigate('Game')}
+                onPress={() => {
+                  if (currentIdx === questions.length - 1) {
+                    navigation.navigate('Result', newPlayers);
+                  } else {
+                    navigation.navigate('Game');
+                  }
+                }}
                 style={{}}>
                 <LinearGradient
                   colors={['#E7931D', '#F4B821', '#DE7319']}
