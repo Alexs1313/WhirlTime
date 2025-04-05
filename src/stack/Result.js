@@ -22,6 +22,9 @@ const Result = () => {
   //     getScore();
   //   }, []);
 
+  const ascSortedPlayers = playersStore.sort((a, b) => b.score - a.score);
+  console.log('sorted', ascSortedPlayers);
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{alignItems: 'center'}}>
@@ -44,14 +47,16 @@ const Result = () => {
             style={styles.linearGradient}></LinearGradient>
           <View style={{position: 'absolute', top: 17, left: 24}}>
             <Text style={styles.buttonText}>The winner</Text>
-            <Text style={styles.buttonText}>is !</Text>
+            <Text style={styles.buttonText}>
+              is {ascSortedPlayers[0].name}!
+            </Text>
           </View>
           <Image
             source={require('../../assets/img/categoryMan2.png')}
             style={{position: 'absolute', bottom: 20, right: 0}}
           />
         </View>
-        {playersStore.map((player, idx) => (
+        {ascSortedPlayers.map((player, idx) => (
           <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
             <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
             <Text style={styles.newPlayerContainerScore}>{player?.score}</Text>

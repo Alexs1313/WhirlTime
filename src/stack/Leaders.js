@@ -17,7 +17,10 @@ import {useStore, newPlayers} from '../../store/context';
 const Leaders = ({route}) => {
   const {category, setCategory, playersStore} = useStore();
 
-  console.log('playersStore', playersStore);
+  console.log('playersStoreLead', playersStore);
+
+  const ascSortedPlayers = playersStore.sort((a, b) => b.score - a.score);
+  console.log('sorted', ascSortedPlayers);
 
   const categories = [
     {
@@ -58,7 +61,7 @@ const Leaders = ({route}) => {
             colors={['#E7931D', '#F4B821', '#DE7319']}
             style={styles.linearGradient}></LinearGradient>
           <View style={{position: 'absolute', top: 17, left: 24}}>
-            <Text style={styles.buttonText}>The winner</Text>
+            <Text style={styles.buttonText}>Here is the leaderboard!</Text>
             <Text style={styles.buttonText}>is !</Text>
           </View>
           <Image
@@ -66,9 +69,10 @@ const Leaders = ({route}) => {
             style={{position: 'absolute', bottom: 20, right: 0}}
           />
         </View>
-        {playersStore.map((player, idx) => (
+        {ascSortedPlayers.map((player, idx) => (
           <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
             <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
+            <Text style={styles.newPlayerContainerScore}>{player?.score}</Text>
           </TouchableOpacity>
         ))}
         <View style={{marginTop: 22}}>
@@ -96,6 +100,12 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratAlternates-bold',
     color: '#4A1A13',
     backgroundColor: 'transparent',
+  },
+  newPlayerContainerScore: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#fff',
   },
 
   addButton: {
