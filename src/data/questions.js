@@ -424,4 +424,434 @@ Who wrote "Harry Potter"?`,
     answer: 'A) Nothing — books are burned',
     category: 'Books',
   },
+
+  {
+    id: 41,
+    question: `
+What is the highest mountain in the world?`,
+    options: ['A) Elbrus', 'B) Kilimanjaro', 'C) Mont Blanc', 'D) Everest'],
+    answer: 'D) Everest',
+    category: 'Geography',
+  },
+  {
+    id: 42,
+    question: `
+   The capital of Canada is...
+`,
+    options: ['A) Ottawa', 'B) Toronto', 'C) Vancouver', 'D) Montreal'],
+    answer: 'A) Ottawa',
+    category: 'Geography',
+  },
+  {
+    id: 43,
+    question: `
+   Which ocean is the largest in terms of area?`,
+    options: ['A) Atlantic', 'B) Pacific', 'C) Indian', 'D) Arctic'],
+    answer: 'B) Pacific',
+    category: 'Geography',
+  },
+  {
+    id: 44,
+    question: `
+   Which river is the longest in the world?`,
+    options: [`A) Nile`, 'B) Amazon', 'C) Yangtze', 'D) Mississippi'],
+    answer: `A) Nile`,
+    category: 'Geography',
+  },
+  {
+    id: 45,
+    question: `
+   On which continent is Argentina located?
+`,
+    options: ['A) North America', 'B) South America', 'C) Europe', 'D) Africa'],
+    answer: 'B) South America',
+    category: 'Geography',
+  },
+  {
+    id: 46,
+    question: `
+     Which country has the largest area?`,
+    options: ['A) China', 'B) Canada', 'C) USA', 'D) Russia'],
+    answer: 'D) Russia',
+    category: 'Geography',
+  },
+  {
+    id: 47,
+    question: `
+   The capital of Australia?
+`,
+    options: ['A) Canberra', 'B) Sydney', 'C) Melbourne', 'D) Brisbane'],
+    answer: 'A) Canberra',
+    category: 'Geography',
+  },
+  {
+    id: 48,
+    question: `
+   Where is the Grand Canyon located?`,
+    options: ['A) Canada', 'B) Mexico', 'C) USA', 'D) Brazil'],
+    answer: 'C) USA',
+    category: 'Geography',
+  },
+  {
+    id: 49,
+    question: `
+    Which country is shaped like a boot?`,
+    options: ['A) Italy', 'B) Spain', 'C) Turkey', 'D) Greece'],
+    answer: 'A) Italy',
+    category: 'Geography',
+  },
+  {
+    id: 50,
+    question: `
+    Which continent is the smallest?`,
+    options: [
+      'A) Antarctica',
+      'B) Europe',
+      `C) Australia
+`,
+      'D) Africa',
+    ],
+    answer: 'C) Australia',
+    category: 'Geography',
+  },
+  {
+    id: 51,
+    question: `
+  Which sea is the saltiest?
+`,
+    options: [`A) Dead`, 'B) Red', 'C) Mediterranean', 'D) Caribbean'],
+    answer: `A) Dead`,
+    category: 'Geography',
+  },
+  {
+    id: 52,
+    question: `
+     Which continents are crossed by the equator?`,
+    options: [
+      'A) Africa, South America, Asia',
+      'B) Europe, Africa',
+      'C) Asia, Europe',
+      'D) North America, Asia',
+    ],
+    answer: 'A) Africa, South America, Asia',
+    category: 'Geography',
+  },
+  {
+    id: 53,
+    question: `
+  Which country has the largest population?
+`,
+    options: ['A) Indonesia', 'B) India', 'C) USA', 'D) China'],
+    answer: 'D) China',
+    category: 'Geography',
+  },
+  {
+    id: 54,
+    question: `
+   What is the name of the largest desert in the world?
+`,
+    options: ['A) Sahara', 'B) Antarctic', 'C) Arabian', 'D) Gobi'],
+    answer: 'B) Antarctic',
+    category: 'Geography',
+  },
+  {
+    id: 55,
+    question: `
+    Which continent is located entirely in the Southern Hemisphere?`,
+    options: ['A) Europe', 'B) Asia', 'C) Australia', 'D) North America'],
+    answer: 'C) Australia',
+    category: 'Geography',
+  },
+  {
+    id: 56,
+    question: `
+   In which city is the Eiffel Tower located?
+`,
+    options: ['A) Paris', 'B) Lyon', 'C) Rome', 'D) Milan'],
+    answer: 'A) Paris',
+    category: 'Geography',
+  },
+  {
+    id: 57,
+    question: `
+    Which river flows through London?
+`,
+    options: ['A) Tiber', 'B) Danube', 'C) Seine', 'D) Thames'],
+    answer: 'D) Thames',
+    category: 'Geography',
+  },
+  {
+    id: 58,
+    question: `
+    Which country is located on two continents?
+
+`,
+    options: ['A) Turkey', 'B) Egypt', 'C) Russia', 'D) Mexico'],
+    answer: 'A) Turkey',
+    category: 'Geography',
+  },
+  {
+    id: 59,
+    question: `
+    Which continent is the coldest?`,
+    options: ['A) Europe', 'B) North America', 'C) Antarctica', 'D) Asia'],
+    answer: 'C) Antarctica',
+    category: 'Geography',
+  },
+  {
+    id: 60,
+    question: `
+    How many oceans are there on Earth?`,
+    options: ['A) 3', 'B) 4', 'C) 5', 'D) 6'],
+    answer: 'C) 5',
+    category: 'Geography',
+  },
+
+  {
+    id: 61,
+    question: `
+What falls but doesn't break?`,
+    options: ['A) Glass', 'B) Night', 'C) Penguin', 'D) Fuel prices'],
+    answer: 'B) Night',
+    category: 'General knowledge',
+  },
+  {
+    id: 62,
+    question: `
+  What can't you eat for breakfast?
+`,
+    options: ['A) Eggs', 'B) Toast', 'C) Lunch', 'D) Sandwich'],
+    answer: 'C) Lunch',
+    category: 'General knowledge',
+  },
+  {
+    id: 63,
+    question: `
+   What happens if you eat too much garlic?`,
+    options: [
+      'A) Social isolation',
+      'B) Mega-strength',
+      'C) Becoming a vampire',
+      'D) Immortality',
+    ],
+    answer: 'A) Social isolation',
+    category: 'General knowledge',
+  },
+  {
+    id: 64,
+    question: `
+   What happens if you press Ctrl+Alt+Del on the piano?`,
+    options: [
+      `A) Nothing, but it sounds serious`,
+      'B) Windows will start',
+      `C) Summon Mozart's spirit`,
+      'D) Throw you out of the room',
+    ],
+    answer: `A) Nothing, but it sounds serious`,
+    category: 'General knowledge',
+  },
+  {
+    id: 65,
+    question: `
+   Which superhero has the least chance of surviving in the cold?
+`,
+    options: ['A) Thor', 'B) Iron Man', 'C) Spider-Man', 'D) Lollipop Man'],
+    answer: 'D) Lollipop Man',
+    category: 'General knowledge',
+  },
+  {
+    id: 66,
+    question: `
+     What do coffee and Monday have in common?
+`,
+    options: [
+      'A) They make you run',
+      'B) They like silence',
+      'C) Both are loud in the morning',
+      'D) They have a bitter aftertaste',
+    ],
+    answer: 'C) Both are loud in the morning',
+    category: 'General knowledge',
+  },
+  {
+    id: 67,
+    question: `
+   Why does a computer never break on Fridays?
+`,
+    options: [
+      `A) Because it knows you're not working anymore`,
+      `B) Because it's afraid`,
+      `C) It's on its day off
+`,
+      `D) It's been broken for a long time`,
+    ],
+    answer: `A) Because it knows you're not working anymore`,
+    category: 'General knowledge',
+  },
+  {
+    id: 68,
+    question: `
+   Which fruit is the laziest?`,
+    options: [
+      'A) Lemon - gets sour from everything',
+      'B) Coconut - lies on the beach',
+      'C) Pineapple - always in armor',
+      'D) Banana, because it even lies with a bend',
+    ],
+    answer: 'D) Banana, because it even lies with a bend',
+    category: 'General knowledge',
+  },
+  {
+    id: 69,
+    question: `
+    Why does the refrigerator open smoothly?
+`,
+    options: [
+      'A) Because it is afraid of your hunger',
+      'B) It is immersed in thought',
+      'C) Its night teaches',
+      'D) It works in the style of Zen',
+    ],
+    answer: 'A) Because it is afraid of your hunger',
+    category: 'General knowledge',
+  },
+  {
+    id: 70,
+    question: `
+    What can't talk, but always answers?`,
+    options: [
+      'A) Google',
+      'B) A phone without Wi-Fi',
+      `C) A cat, if you ask too much
+`,
+      'D) Echo',
+    ],
+    answer: 'D) Echo',
+    category: 'General knowledge',
+  },
+  {
+    id: 71,
+    question: `
+  Where is it better not to go barefoot?
+`,
+    options: [
+      `A) By a cloud
+`,
+      'B) By LEGO',
+      'C) By a carrot',
+      `D) By the phrase "I'm calling you out"`,
+    ],
+    answer: `B) By LEGO`,
+    category: 'General knowledge',
+  },
+  {
+    id: 72,
+    question: `
+     What is the name of a cat's profession?`,
+    options: [
+      'A) Lying consultant',
+      'B) Mouse manager',
+      'C) Murkotherapist',
+      'D) General scratcher',
+    ],
+    answer: 'A) Lying consultant',
+    category: 'General knowledge',
+  },
+  {
+    id: 73,
+    question: `
+  What is the most honest button in the elevator?
+`,
+    options: [
+      'A) 13th floor',
+      'B) Close the door',
+      'C) Signal',
+      'D) Open the door',
+    ],
+    answer: 'D) Open the door',
+    category: 'General knowledge',
+  },
+  {
+    id: 74,
+    question: `
+   What is the most often lost when you need it most?
+`,
+    options: ['A) Sock', 'B) Wi-Fi', 'C) Patience', 'D) Gmail password'],
+    answer: 'B) Wi-Fi',
+    category: 'General knowledge',
+  },
+  {
+    id: 75,
+    question: `
+    What word sounds the same even if you say it very sadly?`,
+    options: ['A) Hmm', 'B) Yo', 'C) Wow', 'D) Well...'],
+    answer: 'A) Hmm',
+    category: 'General knowledge',
+  },
+  {
+    id: 76,
+    question: `
+   Which team wins any match from rest?
+`,
+    options: [
+      'A) Barcelona',
+      'B) Pillow and blanket',
+      'C) City bed',
+      'D) United mattress',
+    ],
+    answer: 'B) Pillow and blanket',
+    category: 'General knowledge',
+  },
+  {
+    id: 77,
+    question: `
+    What does disappointment taste like?
+`,
+    options: [
+      'A) Free coffee from a vending machine',
+      'B) Free candy',
+      'C) Mint toothpaste cake',
+      'D) Tea with coffee',
+    ],
+    answer: 'A) Free coffee from a vending machine',
+    category: 'General knowledge',
+  },
+  {
+    id: 78,
+    question: `
+    What is the scariest sound in the silence of the night?
+
+
+`,
+    options: ['A) “Crunch”', 'B) “Mamaaaaa?”', 'C) “Cheese”', 'D) “Oops…”'],
+    answer: 'D) “Oops…”',
+    category: 'General knowledge',
+  },
+  {
+    id: 79,
+    question: `
+    Which city never sleeps?
+`,
+    options: [
+      'A) Tokyo',
+      'B) New York',
+      'C) The one where there are children under 3 years old',
+      'D) London',
+    ],
+    answer: 'C) The one where there are children under 3 years old',
+    category: 'General knowledge',
+  },
+  {
+    id: 80,
+    question: `
+    What does the person who clicked “Save as” do?`,
+    options: [
+      'A) Panicks a little',
+      'B) Brings it back to reality',
+      'C) Invents a new document',
+      'D) Prepares to escape',
+    ],
+    answer: 'A) Panicks a little',
+    category: 'General knowledge',
+  },
 ];
