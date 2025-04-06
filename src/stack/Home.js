@@ -1,29 +1,11 @@
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, View} from 'react-native';
 import ButtonLinear from '../components/ButtonLinear';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useEffect, useState} from 'react';
-import {useStore} from '../../store/context';
-import {useIsFocused} from '@react-navigation/native';
 
 const Home = () => {
-  const {removePlayers} = useStore();
-  const isFocused = useIsFocused();
-
   // useEffect(() => {
   //   AsyncStorage.clear();
   //   console.log('asyncstorage CLEAR');
   // }, []);
-
-  // useEffect(() => {
-  //   console.log('isFocused');
-  // }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -56,7 +38,6 @@ const styles = StyleSheet.create({
   buttonWrap: {
     marginHorizontal: 39,
   },
-  image: {},
 });
 
 export default Home;

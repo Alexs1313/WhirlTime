@@ -17,67 +17,54 @@ import {useNavigation} from '@react-navigation/native';
 
 const Questions = () => {
   const [selectedCat, setSelectedCat] = useState(null);
-  //   const [currentIdx, setCurrentIdx] = useState(0);
   const {currentIdx, setCurrentIdx} = useStore(0);
   const [isCorrect, setIsCorrect] = useState(false);
-  //   const [score, setScore] = useState(0);
   const [findAnswer, setFindAnswer] = useState(false);
 
   const navigation = useNavigation();
 
   const {
     category,
-    setCategory,
-    setFilteredPlayer,
-    filteredPlayer,
-    score,
-    setScore,
-    score1,
-    setScore1,
     randomIdx,
     newPlayers,
     savePlayers,
     playersStore,
-    setNewPlayers,
     setPlayersStore,
+    getPlayers,
   } = useStore();
   const [filtered, setFiltered] = useState(
     questions.filter(question => question.category === category),
   );
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(15);
-  const [plusOne, setPlusOne] = useState(0);
-
-  console.log('плеер в cтор', playersStore);
 
   useEffect(() => {
-    setScore(score + 1);
+    // setScore(score + 1);
+    getPlayers();
   }, []);
 
-  //   const ref = useRef(score);
+  useEffect(() => {
+    let timerInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      } else {
+        if (minutes === 0) {
+          clearInterval(timerInterval);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
 
-  //   console.log('newPlayers', newPlayers);
-  //   console.log('randomIdx', randomIdx);
+    return () => clearInterval(timerInterval);
+  }, [minutes, seconds]);
 
   //   useEffect(() => {
-  //     setPlusOne(score + 1);
-  //   }, [findOutAnswer]);
 
-  //   useEffect(() => {
-  //     let timerInterval = setInterval(() => {
-  //       if (seconds > 0) {
-  //         setSeconds(seconds - 1);
-  //       } else {
-  //         if (minutes === 0) {
-  //           clearInterval(timerInterval);
-  //         } else {
-  //           setMinutes(minutes - 1);
-  //           setSeconds(59);
-  //         }
-  //       }
-  //     }, 1000);
-
-  //     return () => clearInterval(timerInterval);
+  //     setTimeout(() => {
+  //       navigation.navigate('Game');
+  //     }, 17000);
   //   }, []);
 
   const findOutAnswer = () => {
@@ -85,36 +72,8 @@ const Questions = () => {
     setIsCorrect(isCorrectAnswer);
     setFindAnswer(true);
 
-    // if (randomIdx === 0) {
-    //   console.log('index 0');
-    //   if (isCorrectAnswer) {
-    //     setScore(prev => prev + 1);
-    //   }
-    // } else if (randomIdx === 1) {
-    //   if (isCorrectAnswer) {
-    //     setScore1(prev => prev + 1);
-    //   }
-    // } else if (randomIdx === 2) {
-    //   console.log('index 2');
-    // } else if (randomIdx === 3) {
-    //   console.log('index 3');
-    // } else if (randomIdx === 4) {
-    //   console.log('index 4');
-    // } else if (randomIdx === 5) {
-    //   console.log('index 5');
-    // }
-
-    // const newPlayer = {
-    //   ...filteredPlayer,
-    //   score: score,
-    // };
-    // setScore(score + 1);
-    // const filter = newPlayers.filter((_, idx) => {
-    //   return idx === randomIdx;
-    // });
-
     const findSelectedPlayer = playersStore.map((player, idx) => {
-      if (randomIdx === idx) {
+      if (randomIdx === idx && isCorrectAnswer) {
         return {
           ...player,
           score: player.score + 1,
@@ -124,31 +83,10 @@ const Questions = () => {
     });
 
     setPlayersStore(findSelectedPlayer);
-    savePlayers(findSelectedPlayer);
-    console.log('playersStore', findSelectedPlayer);
 
-    // const stats = newPlayers.reduce((acc, player, idx) => {
-    //   console.log('acc', acc);
-    //   if (idx === randomIdx) {
-    //     acc.player[score] += 1;
-    //     return acc;
-    //   }
-
-    //   acc.player[score] = 0;
-    //   return acc;
-    // }, {});
-
-    // console.log('stats', stats);
-
-    // const findSelectedPlayer = filter.reduce((acc, player) => {
-    //   return {
-    //     ...player,
-    //     score: acc + 1,
-    //   };
-    // }, 0);
-    // console.log('findSelectedPlayer', findSelectedPlayer);
-
-    // setFilteredPlayer(newPlayer);
+    if (isCorrectAnswer) {
+      savePlayers(findSelectedPlayer);
+    }
   };
 
   return (
@@ -186,8 +124,8 @@ const Questions = () => {
               fontWeight: '900',
               fontFamily: 'MontserratAlternates-bold',
               fontSize: 32,
-              marginTop: 22,
-              marginBottom: 72,
+              marginTop: 42,
+              marginBottom: 42,
             }}>
             {isCorrect ? 'KEEP IT UP!' : 'OH, NOT THIS TIME!'}
           </GradientText>
@@ -287,7 +225,7 @@ const Questions = () => {
                 activeOpacity={0.7}
                 disabled={selectedCat === null}
                 onPress={() => {
-                  if (currentIdx === questions.length - 1) {
+                  if (currentIdx === questions.length - 61) {
                     navigation.navigate('Result', newPlayers);
                   } else {
                     navigation.navigate('Game');
@@ -340,7 +278,7 @@ const styles = StyleSheet.create({
     borderColor: '#E7931D',
     padding: 10,
     marginBottom: 40,
-    marginTop: 20,
+    marginTop: 28,
   },
   timerText: {
     fontSize: 20,
@@ -397,6 +335,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: 5,
   },
   newPlayerContainer: {
     height: 60,

@@ -25,10 +25,7 @@ const Game = () => {
   const [stopLoader, setStopLoader] = useState(false);
   const {newPlayers} = useStore();
   const navigation = useNavigation();
-  const {setCurrentIdx, randomIdx, setRandomIdx, savePlayers, playersStore} =
-    useStore();
-
-  console.log('playersStore GAME', playersStore);
+  const {setCurrentIdx, randomIdx, setRandomIdx} = useStore();
 
   const randomIndex = () => {
     const random = Math.floor(Math.random() * newPlayers.length);

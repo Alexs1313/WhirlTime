@@ -1,8 +1,7 @@
-import {useEffect, useState} from 'react';
 import {
   Image,
-  Pressable,
   SafeAreaView,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,35 +9,35 @@ import {
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import ButtonLinear from '../components/ButtonLinear';
+
 import GradientText from '../components/TextGradient';
-import {useStore, newPlayers} from '../../store/context';
+import {useStore} from '../../store/context';
+import {useNavigation} from '@react-navigation/native';
 
-const Leaders = ({route}) => {
-  const {category, setCategory, playersStore} = useStore();
-
-  console.log('playersStoreLead', playersStore);
+const Leaders = () => {
+  const {playersStore} = useStore();
+  const navigation = useNavigation();
 
   const ascSortedPlayers = playersStore.sort((a, b) => b.score - a.score);
   console.log('sorted', ascSortedPlayers);
 
-  const categories = [
-    {
-      category: 'Movie',
-    },
-    {
-      category: 'Sport',
-    },
-    {
-      category: 'Books',
-    },
-    {
-      category: 'Geography',
-    },
-    {
-      category: 'General knowledge',
-    },
-  ];
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `The winner is ${ascSortedPlayers[0].name} with ${ascSortedPlayers[0].score} scores`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -56,28 +55,109 @@ const Leaders = ({route}) => {
         </GradientText>
       </SafeAreaView>
       <View style={{marginHorizontal: 15}}>
-        <View onPress={() => navigation.navigate(navigateTo)}>
-          <LinearGradient
-            colors={['#E7931D', '#F4B821', '#DE7319']}
-            style={styles.linearGradient}></LinearGradient>
-          <View style={{position: 'absolute', top: 17, left: 24}}>
-            <Text style={styles.buttonText}>Here is the leaderboard!</Text>
-            <Text style={styles.buttonText}>is !</Text>
+        {!playersStore.length > 0 ? (
+          <View>
+            <LinearGradient
+              colors={['#E7931D', '#F4B821', '#DE7319']}
+              style={styles.linearGradient}></LinearGradient>
+            <View
+              style={{position: 'absolute', top: 17, left: 24, width: '48%'}}>
+              <Text style={styles.buttonText}>
+                It's hard to say who the leader is...
+              </Text>
+              <Text style={styles.secondButtonText}>
+                {`Play at least one game)`}
+              </Text>
+              <TouchableOpacity
+                style={styles.startNewGameBtn}
+                onPress={() => navigation.navigate('NewGame')}>
+                <Text style={styles.shareBtnText}>Ok, start the game</Text>
+              </TouchableOpacity>
+            </View>
+            <Image
+              source={require('../../assets/img/leadersMan1.png')}
+              style={{position: 'absolute', bottom: 20, right: -10}}
+            />
           </View>
-          <Image
-            source={require('../../assets/img/categoryMan2.png')}
-            style={{position: 'absolute', bottom: 20, right: 0}}
-          />
-        </View>
-        {ascSortedPlayers.map((player, idx) => (
-          <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
-            <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
-            <Text style={styles.newPlayerContainerScore}>{player?.score}</Text>
-          </TouchableOpacity>
-        ))}
-        <View style={{marginTop: 22}}>
+        ) : (
+          <View>
+            <LinearGradient
+              colors={['#E7931D', '#F4B821', '#DE7319']}
+              style={styles.linearGradient}></LinearGradient>
+            <View
+              style={{position: 'absolute', top: 17, left: 24, width: '48%'}}>
+              <Text style={styles.buttonText}>Here is the leaderboard!</Text>
+              <Text style={styles.secondButtonText}>
+                You can share it with your friends, maybe they will want to be
+                the first.
+              </Text>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.shareBtn}
+                onPress={() => onShare()}>
+                <Text style={styles.shareBtnText}>SHARE</Text>
+                <Image source={require('../../assets/img/share.png')} />
+              </TouchableOpacity>
+            </View>
+            <Image
+              source={require('../../assets/img/leadersMan.png')}
+              style={{position: 'absolute', bottom: 20, right: -10}}
+            />
+          </View>
+        )}
+
+        {playersStore.length > 0 && (
+          <View style={styles.leadersContainer}>
+            {ascSortedPlayers.map((player, idx) =>
+              idx === 0 ? (
+                <View>
+                  <LinearGradient
+                    colors={['#E7931D', '#F4B821', '#DE7319']}
+                    style={{
+                      height: 60,
+                      width: 350,
+                      borderRadius: 15,
+                      marginBottom: 10,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingLeft: 15,
+                        paddingRight: 20,
+                        paddingTop: 12,
+                      }}>
+                      <Text
+                        style={idx === 0 && styles.newPlayerContainerTextFirst}>
+                        {player?.name}
+                      </Text>
+                      <Text
+                        style={
+                          idx === 0 && styles.newPlayerContainerScoreFirst
+                        }>
+                        {player?.score}
+                      </Text>
+                    </View>
+                  </LinearGradient>
+                </View>
+              ) : (
+                <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
+                  <Text style={styles.newPlayerContainerText}>
+                    {player?.name}
+                  </Text>
+                  <Text style={styles.newPlayerContainerScore}>
+                    {player?.score}
+                  </Text>
+                </TouchableOpacity>
+              ),
+            )}
+          </View>
+        )}
+
+        {/* <View style={{marginTop: 22}}>
           <ButtonLinear text={'Start Play'} navigateTo={'Game'} />
-        </View>
+        </View> */}
       </View>
     </View>
   );
@@ -89,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#520000',
   },
   linearGradient: {
-    height: 106,
+    height: 230,
     width: '100%',
     borderRadius: 24,
     marginBottom: 20,
@@ -100,6 +180,21 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratAlternates-bold',
     color: '#4A1A13',
     backgroundColor: 'transparent',
+    marginBottom: 13,
+  },
+  leadersContainer: {
+    backgroundColor: '#670000',
+    alignItems: 'center',
+    borderRadius: 22,
+    padding: 15,
+    marginHorizontal: 10,
+  },
+  secondButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#4A1A13',
+    marginBottom: 13,
   },
   newPlayerContainerScore: {
     fontSize: 24,
@@ -107,7 +202,38 @@ const styles = StyleSheet.create({
     fontFamily: 'MontserratAlternates-bold',
     color: '#fff',
   },
-
+  newPlayerContainerScoreFirst: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#4A1A13',
+  },
+  shareBtn: {
+    width: '90%',
+    padding: 20,
+    paddingLeft: 35,
+    paddingRight: 35,
+    backgroundColor: '#fff',
+    height: 55,
+    borderRadius: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  startNewGameBtn: {
+    width: '100%',
+    padding: 18,
+    backgroundColor: '#fff',
+    height: 55,
+    borderRadius: 15,
+    alignItems: 'center',
+  },
+  shareBtnText: {
+    fontSize: 14,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#4A1A13',
+  },
   addButton: {
     width: 39,
     height: 39,
@@ -143,10 +269,16 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   newPlayerContainerText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '600',
     fontFamily: 'MontserratAlternates-bold',
     color: '#fff',
+  },
+  newPlayerContainerTextFirst: {
+    fontSize: 20,
+    fontWeight: '600',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#4A1A13',
   },
   inactiveText: {
     fontSize: 20,

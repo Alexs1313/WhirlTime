@@ -11,38 +11,13 @@ export const StoreProvider = ({children}) => {
   const [newPlayers, setNewPlayers] = useState([]);
   const [category, setCategory] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [filteredPlayer, setFilteredPlayer] = useState();
-  const [score, setScore] = useState(0);
-  const [score1, setScore1] = useState(0);
   const [randomIdx, setRandomIdx] = useState(0);
-  const [playersStore, setPlayersStore] = useState(null);
+  const [playersStore, setPlayersStore] = useState([]);
 
-  useEffect(() => {
-    getPlayers();
-    // savePlayers(playersStore);
-  }, [score]);
-
-  // const totalScore = [score, score1];
-
-  // const saveScore = async players => {
-  //   try {
-  //     await AsyncStorage.setItem('score', JSON.stringify(totalScore));
-  //     console.log('saved SCORE');
-  //   } catch (error) {
-  //     console.log('err to save players', error);
-  //   }
-  // };
-
-  // const getScore = async () => {
-  //   try {
-  //     const data = await AsyncStorage.getItem('score');
-  //     const players = data != null ? JSON.parse(data) : [];
-  //     console.log('score from storage', score);
-  //     // setPlayersStore(players);
-  //   } catch (error) {
-  //     console.log('err to save players', error);
-  //   }
-  // };
+  // useEffect(() => {
+  //   getPlayers();
+  //   // savePlayers(playersStore);
+  // }, [score]);
 
   const savePlayers = async players => {
     try {
@@ -81,12 +56,6 @@ export const StoreProvider = ({children}) => {
     setCategory,
     currentIdx,
     setCurrentIdx,
-    filteredPlayer,
-    setFilteredPlayer,
-    score,
-    setScore,
-    score1,
-    setScore1,
     randomIdx,
     setRandomIdx,
     savePlayers,

@@ -1,6 +1,7 @@
 import {
   Image,
   SafeAreaView,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,18 +13,30 @@ import LinearGradient from 'react-native-linear-gradient';
 import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
 import {useNavigation} from '@react-navigation/native';
-import {useEffect} from 'react';
 
 const Result = () => {
-  const {playersStore, getScore} = useStore();
+  const {playersStore} = useStore();
   const navigation = useNavigation();
 
-  //   useEffect(() => {
-  //     getScore();
-  //   }, []);
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `The winner is ${ascSortedPlayers[0].name} with ${ascSortedPlayers[0].score} scores`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const ascSortedPlayers = playersStore.sort((a, b) => b.score - a.score);
-  console.log('sorted', ascSortedPlayers);
 
   return (
     <View style={styles.container}>
@@ -56,25 +69,81 @@ const Result = () => {
             style={{position: 'absolute', bottom: 20, right: 0}}
           />
         </View>
-        {ascSortedPlayers.map((player, idx) => (
-          <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
-            <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
-            <Text style={styles.newPlayerContainerScore}>{player?.score}</Text>
-          </TouchableOpacity>
-        ))}
-        <View style={{marginTop: 22}}>
+        {ascSortedPlayers.map((player, idx) =>
+          idx === 0 ? (
+            <View key={player.id}>
+              <LinearGradient
+                colors={['#E7931D', '#F4B821', '#DE7319']}
+                style={{
+                  height: 60,
+                  width: '100%',
+                  borderRadius: 15,
+                  marginBottom: 10,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingLeft: 15,
+                    paddingRight: 20,
+                    paddingTop: 12,
+                  }}>
+                  <Text style={idx === 0 && styles.newPlayerContainerTextFirst}>
+                    {player?.name}
+                  </Text>
+                  <Text
+                    style={idx === 0 && styles.newPlayerContainerScoreFirst}>
+                    {player?.score}
+                  </Text>
+                </View>
+              </LinearGradient>
+            </View>
+          ) : (
+            <TouchableOpacity key={idx} style={styles.newPlayerContainer}>
+              <Text style={styles.newPlayerContainerText}>{player?.name}</Text>
+              <Text style={styles.newPlayerContainerScore}>
+                {player?.score}
+              </Text>
+            </TouchableOpacity>
+          ),
+        )}
+        <View
+          style={{
+            marginTop: 22,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 20,
+          }}>
           <TouchableOpacity
             onPress={() => {
               navigation.popTo('Home');
-            }}
-            style={styles.container}>
+            }}>
             <LinearGradient
               colors={['#E7931D', '#F4B821', '#DE7319']}
               style={styles.linearGradientButton}>
-              <Text style={styles.buttonTextGoHome}>go home</Text>
+              <Image
+                source={require('../../assets/img/home2.png')}
+                style={{width: 50, height: 50}}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              onShare();
+            }}>
+            <LinearGradient
+              colors={['#E7931D', '#F4B821', '#DE7319']}
+              style={styles.linearGradientButton}>
+              <Image
+                source={require('../../assets/img/share.png')}
+                style={{width: 50, height: 50}}
+              />
             </LinearGradient>
           </TouchableOpacity>
         </View>
+        <View></View>
       </View>
     </View>
   );
@@ -154,9 +223,11 @@ const styles = StyleSheet.create({
   },
   linearGradientButton: {
     height: 95,
-    width: '100%',
+    width: 95,
     borderRadius: 24,
     marginBottom: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: 'rgba(179, 179, 179, 0.25)',
     shadowOffset: {
       width: 6,
@@ -174,6 +245,30 @@ const styles = StyleSheet.create({
     color: '#4A1A13',
     backgroundColor: 'transparent',
     marginTop: 33,
+  },
+  newPlayerContainerScore: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#fff',
+  },
+  newPlayerContainerScoreFirst: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#4A1A13',
+  },
+  newPlayerContainerText: {
+    fontSize: 16,
+    fontWeight: '600',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#fff',
+  },
+  newPlayerContainerTextFirst: {
+    fontSize: 20,
+    fontWeight: '600',
+    fontFamily: 'MontserratAlternates-bold',
+    color: '#4A1A13',
   },
 });
 
