@@ -1,7 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   Share,
   StyleSheet,
@@ -11,10 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {LinearTextGradient} from 'react-native-text-gradient';
-
 const Info = () => {
-  const navigation = useNavigation();
   const info = `Whirl Time - answer or miss is an exciting quiz where wit, speed and a little luck will help you become a champion!
 Play with friends, choose topics, answer tricky questions and prove that you are the brains of the company
 
@@ -26,17 +21,9 @@ A fun atmosphere, no pressure - only intelligence and fan spirit!`;
 
   const onShare = async () => {
     try {
-      const result = await Share.share({
+      await Share.share({
         message: info,
       });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
     } catch (error) {
       alert(error.message);
     }
@@ -61,18 +48,8 @@ A fun atmosphere, no pressure - only intelligence and fan spirit!`;
               <LinearGradient
                 colors={['#E7931D', '#F4B821', '#DE7319']}
                 style={styles.linearGradient}>
-                <TouchableOpacity
-                  onPress={onShare}
-                  style={{
-                    backgroundColor: 'transparent',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingLeft: 28,
-                    paddingRight: 28,
-                    paddingTop: 8,
-                  }}>
-                  <Text style={styles.buttonText}>share</Text>
+                <TouchableOpacity onPress={onShare} style={styles.btnContainer}>
+                  <Text style={styles.buttonText}>SHARE</Text>
                   <Image source={require('../../assets/img/share.png')} />
                 </TouchableOpacity>
               </LinearGradient>
@@ -95,6 +72,15 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     padding: 25,
   },
+  btnContainer: {
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 28,
+    paddingRight: 28,
+    paddingTop: 10,
+  },
   linearGradient: {
     height: 57,
     borderRadius: 24,
@@ -107,7 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: '900',
     fontFamily: 'MontserratAlternates-bold',
     color: '#4A1A13',

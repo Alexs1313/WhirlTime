@@ -1,26 +1,23 @@
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TextInput} from 'react-native-gesture-handler';
+
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NewGame = () => {
   const [inputValue, setInputValue] = useState('');
-  // const [newPlayers, setNewPlayers] = useState([]);
   const {newPlayers, setNewPlayers, setCategory, setCurrentIdx} = useStore();
-  const {score, savePlayers} = useStore();
-
   const [toggleInput, setToggleInput] = useState(true);
 
   useEffect(() => {
@@ -54,13 +51,7 @@ const NewGame = () => {
       <SafeAreaView style={{alignItems: 'center'}}>
         <GradientText
           colors={['#E7931D', '#F4B821', '#DE7319']}
-          style={{
-            fontWeight: '900',
-            fontFamily: 'MontserratAlternates-bold',
-            fontSize: 32,
-            marginTop: 22,
-            marginBottom: 72,
-          }}>
+          style={styles.gradientText}>
           NEW GAME
         </GradientText>
       </SafeAreaView>
@@ -134,11 +125,7 @@ const NewGame = () => {
         </TouchableOpacity>
         {!toggleInput && (
           <View style={{marginTop: 70}}>
-            <ButtonLinear
-              text={'Next'}
-              navigateTo={'SelectCategory'}
-              // newPlayers={newPlayers}
-            />
+            <ButtonLinear text={'Next'} navigateTo={'SelectCategory'} />
           </View>
         )}
       </View>
@@ -154,6 +141,13 @@ const styles = StyleSheet.create({
   buttonWrap: {
     marginHorizontal: 39,
   },
+  gradientText: {
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    fontSize: 32,
+    marginTop: 22,
+    marginBottom: 72,
+  },
   image: {
     width: '100%',
     height: 310,
@@ -163,6 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'MontserratAlternates-bold',
     color: '#1D1D1D',
+    marginTop: 5,
   },
   linearGradient: {
     height: 106,
@@ -170,7 +165,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     marginBottom: 62,
   },
-
   buttonText: {
     fontSize: 24,
     fontWeight: '900',

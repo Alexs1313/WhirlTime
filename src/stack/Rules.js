@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import {
   Image,
   SafeAreaView,
@@ -9,13 +8,8 @@ import {
 } from 'react-native';
 
 import GradientText from '../components/TextGradient';
-import {useStore} from '../../store/context';
 
 const Rules = () => {
-  const navigation = useNavigation();
-  const {score} = useStore();
-  console.log('score', score);
-
   const info = `Whirl Time - answer or miss is an exciting quiz where wit, speed and a little luck will help you become a champion!
 Play with friends, choose topics, answer tricky questions and prove that you are the brains of the company
 
@@ -70,29 +64,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#520000',
     alignItems: 'center',
   },
-
   textContainer: {
     backgroundColor: '#670000',
     borderRadius: 22,
     padding: 25,
     marginBottom: 15,
   },
-  linearGradient: {
-    height: 57,
-    borderRadius: 24,
-  },
   text: {
     fontSize: 14,
     fontWeight: '900',
     fontFamily: 'MontserratAlternates-bold',
     color: '#fff',
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: '900',
-    fontFamily: 'MontserratAlternates-bold',
-    color: '#4A1A13',
-    backgroundColor: 'transparent',
   },
 });
 

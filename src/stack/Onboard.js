@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import ButtonLinear from '../components/ButtonLinear';
 import ButtonOnboard from '../components/ButtonOnboard';
 import GradientText from '../components/TextGradient';
 import Gradient from '../components/RadialGrad';
@@ -122,7 +121,6 @@ const styles = StyleSheet.create({
     paddingBottom: 28,
     paddingLeft: 26,
     paddingRight: 26,
-    // position: 'absolute',
     marginBottom: 27,
   },
 });

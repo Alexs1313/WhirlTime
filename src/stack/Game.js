@@ -9,13 +9,9 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import ButtonLinear from '../components/ButtonLinear';
+import {useNavigation} from '@react-navigation/native';
 import GradientText from '../components/TextGradient';
 import LinearGradient from 'react-native-linear-gradient';
-
-import {questions} from '../data/questions';
-
-import {useNavigation} from '@react-navigation/native';
 
 import {useStore} from '../../store/context';
 
@@ -30,14 +26,7 @@ const Game = () => {
   const randomIndex = () => {
     const random = Math.floor(Math.random() * newPlayers.length);
     setRandomIdx(random);
-    // savePlayers(newPlayers);
-    // const filtered = newPlayers.find(
-    //   player => player.name === newPlayers[random].name,
-    // );
-    // setFilteredPlayer(filtered);
   };
-
-  // console.log('randomindex', randomIdx);
 
   useEffect(() => {
     const startRotation = () => {
@@ -76,6 +65,7 @@ const Game = () => {
             marginTop: stopLoader ? 120 : 22,
             marginBottom: 62,
             textAlign: 'center',
+            marginHorizontal: 19,
           }}>
           {!stopLoader
             ? `ATTENTION! 
@@ -83,13 +73,7 @@ WE ARE CHOOSING A PLAYER!`
             : `PLAYER SELECTED!`}
         </GradientText>
       </SafeAreaView>
-      <View
-        style={{
-          marginHorizontal: 15,
-          width: '90%',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}>
+      <View style={styles.wrapper}>
         {stopLoader && (
           <View style={styles.newPlayerContainerSelected}>
             <View
@@ -176,8 +160,12 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 60,
-    // width: 100,
-    // height: 100,
+  },
+  wrapper: {
+    marginHorizontal: 15,
+    width: '90%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   linearGradient: {
     height: 95,
@@ -239,7 +227,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: '30%',
     padding: 15,
-
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',
   },
@@ -251,9 +238,7 @@ const styles = StyleSheet.create({
     width: '30%',
     backgroundColor: 'rgba(128, 0, 0, 0.45)',
     borderRadius: 15,
-
     padding: 15,
-
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',
   },
@@ -262,7 +247,6 @@ const styles = StyleSheet.create({
     top: 250,
     right: 0,
     position: 'absolute',
-
     backgroundColor: 'rgba(128, 0, 0, 0.45)',
     borderRadius: 15,
     padding: 15,
@@ -277,9 +261,7 @@ const styles = StyleSheet.create({
     width: '30%',
     backgroundColor: 'rgba(128, 0, 0, 0.45)',
     borderRadius: 15,
-
     padding: 15,
-
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',
   },
@@ -290,13 +272,10 @@ const styles = StyleSheet.create({
     width: '30%',
     backgroundColor: 'rgba(128, 0, 0, 0.45)',
     borderRadius: 15,
-
     padding: 15,
-
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',
   },
-
   newPlayerContainerText: {
     fontSize: 20,
     fontWeight: '600',

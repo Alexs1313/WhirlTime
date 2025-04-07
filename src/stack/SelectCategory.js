@@ -1,15 +1,14 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import LinearGradient from 'react-native-linear-gradient';
+
 import ButtonLinear from '../components/ButtonLinear';
 import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
@@ -21,8 +20,6 @@ const SelectCategory = () => {
     savePlayers(newPlayers);
     setCategory(null);
   }, []);
-
-  console.log('category', category);
 
   const categories = [
     {
@@ -47,13 +44,7 @@ const SelectCategory = () => {
       <SafeAreaView style={{alignItems: 'center'}}>
         <GradientText
           colors={['#E7931D', '#F4B821', '#DE7319']}
-          style={{
-            fontWeight: '900',
-            fontFamily: 'MontserratAlternates-bold',
-            fontSize: 32,
-            marginTop: 22,
-            marginBottom: 72,
-          }}>
+          style={styles.gradientText}>
           NEW GAME
         </GradientText>
       </SafeAreaView>
@@ -121,6 +112,13 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 24,
     marginBottom: 20,
+  },
+  gradientText: {
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    fontSize: 32,
+    marginTop: 22,
+    marginBottom: 72,
   },
   buttonText: {
     fontSize: 24,

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -7,22 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import GradientText from '../components/TextGradient';
 import {questions} from '../data/questions';
 import {useStore} from '../../store/context';
-import {useNavigation} from '@react-navigation/native';
 
 const Questions = () => {
   const [selectedCat, setSelectedCat] = useState(null);
   const {currentIdx, setCurrentIdx} = useStore(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [findAnswer, setFindAnswer] = useState(false);
-
-  const navigation = useNavigation();
-
   const {
     category,
     randomIdx,
@@ -37,9 +33,9 @@ const Questions = () => {
   );
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(15);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    // setScore(score + 1);
     getPlayers();
   }, []);
 
@@ -59,13 +55,6 @@ const Questions = () => {
 
     return () => clearInterval(timerInterval);
   }, [minutes, seconds]);
-
-  //   useEffect(() => {
-
-  //     setTimeout(() => {
-  //       navigation.navigate('Game');
-  //     }, 17000);
-  //   }, []);
 
   const findOutAnswer = () => {
     const isCorrectAnswer = filtered[currentIdx].answer == selectedCat;
@@ -94,12 +83,7 @@ const Questions = () => {
       <SafeAreaView style={{alignItems: 'center'}}>
         {!findAnswer ? (
           <View style={styles.timerContainer}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
+            <View style={styles.timerWrap}>
               <Text style={styles.timerText}>{`${minutes
                 .toString()
                 .padStart(2, '0')}:${seconds
@@ -120,13 +104,7 @@ const Questions = () => {
         ) : (
           <GradientText
             colors={['#E7931D', '#F4B821', '#DE7319']}
-            style={{
-              fontWeight: '900',
-              fontFamily: 'MontserratAlternates-bold',
-              fontSize: 32,
-              marginTop: 42,
-              marginBottom: 42,
-            }}>
+            style={styles.gradientText}>
             {isCorrect ? 'KEEP IT UP!' : 'OH, NOT THIS TIME!'}
           </GradientText>
         )}
@@ -225,7 +203,7 @@ const Questions = () => {
                 activeOpacity={0.7}
                 disabled={selectedCat === null}
                 onPress={() => {
-                  if (currentIdx === questions.length - 61) {
+                  if (currentIdx === questions.length - 82) {
                     navigation.navigate('Result', newPlayers);
                   } else {
                     navigation.navigate('Game');
@@ -264,6 +242,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#520000',
   },
+  timerWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  gradientText: {
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    fontSize: 32,
+    marginTop: 42,
+    marginBottom: 42,
+  },
   linearGradient: {
     width: '100%',
     borderRadius: 24,
@@ -271,7 +261,7 @@ const styles = StyleSheet.create({
   },
   timerContainer: {
     height: 60,
-    width: '30%',
+    width: '35%',
     borderRadius: 15,
     backgroundColor: '#800000',
     borderWidth: 1,
@@ -303,16 +293,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0.5,
   },
-  buttonText: {
-    fontSize: 24,
-    fontWeight: '900',
-    fontFamily: 'MontserratAlternates-bold',
-    textAlign: 'center',
-    margin: 10,
-    color: '#4A1A13',
-    backgroundColor: 'transparent',
-    marginTop: 33,
-  },
+
   qustionContainer: {
     backgroundColor: '#670000',
     borderRadius: 25,
@@ -372,6 +353,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 15,
+
     marginBottom: 12,
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',

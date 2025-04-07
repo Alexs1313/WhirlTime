@@ -19,21 +19,12 @@ const Leaders = () => {
   const navigation = useNavigation();
 
   const ascSortedPlayers = playersStore.sort((a, b) => b.score - a.score);
-  console.log('sorted', ascSortedPlayers);
 
   const onShare = async () => {
     try {
-      const result = await Share.share({
+      await Share.share({
         message: `The winner is ${ascSortedPlayers[0].name} with ${ascSortedPlayers[0].score} scores`,
       });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
     } catch (error) {
       alert(error.message);
     }
@@ -110,24 +101,16 @@ const Leaders = () => {
           <View style={styles.leadersContainer}>
             {ascSortedPlayers.map((player, idx) =>
               idx === 0 ? (
-                <View>
+                <View key={player.id}>
                   <LinearGradient
                     colors={['#E7931D', '#F4B821', '#DE7319']}
                     style={{
                       height: 60,
-                      width: 350,
+                      width: '100%',
                       borderRadius: 15,
                       marginBottom: 10,
                     }}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingLeft: 15,
-                        paddingRight: 20,
-                        paddingTop: 12,
-                      }}>
+                    <View style={styles.scoreWrap}>
                       <Text
                         style={idx === 0 && styles.newPlayerContainerTextFirst}>
                         {player?.name}
@@ -154,10 +137,6 @@ const Leaders = () => {
             )}
           </View>
         )}
-
-        {/* <View style={{marginTop: 22}}>
-          <ButtonLinear text={'Start Play'} navigateTo={'Game'} />
-        </View> */}
       </View>
     </View>
   );
@@ -169,10 +148,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#520000',
   },
   linearGradient: {
-    height: 230,
+    height: 240,
     width: '100%',
     borderRadius: 24,
     marginBottom: 20,
+  },
+  scoreWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 15,
+    paddingRight: 20,
+    paddingTop: 12,
   },
   buttonText: {
     fontSize: 24,
@@ -184,7 +171,6 @@ const styles = StyleSheet.create({
   },
   leadersContainer: {
     backgroundColor: '#670000',
-    alignItems: 'center',
     borderRadius: 22,
     padding: 15,
     marginHorizontal: 10,
@@ -222,11 +208,12 @@ const styles = StyleSheet.create({
   },
   startNewGameBtn: {
     width: '100%',
-    padding: 18,
+    padding: 15,
     backgroundColor: '#fff',
     height: 55,
     borderRadius: 15,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   shareBtnText: {
     fontSize: 14,
@@ -254,20 +241,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(231, 147, 29, 1)',
   },
-  inactivePlayerContainer: {
-    height: 60,
-    backgroundColor: 'rgba(128, 0, 0, 0.45)',
-    width: '100%',
-    borderRadius: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 15,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(231, 147, 29, 1)',
-    opacity: 0.7,
-  },
+
   newPlayerContainerText: {
     fontSize: 16,
     fontWeight: '600',
@@ -279,13 +253,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'MontserratAlternates-bold',
     color: '#4A1A13',
-  },
-  inactiveText: {
-    fontSize: 20,
-    fontWeight: '600',
-    fontFamily: 'MontserratAlternates-bold',
-    color: 'rgba(255, 255, 255, 1)',
-    opacity: 0.7,
   },
 });
 

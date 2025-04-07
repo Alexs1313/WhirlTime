@@ -854,4 +854,262 @@ What falls but doesn't break?`,
     answer: 'A) Panicks a little',
     category: 'General knowledge',
   },
+
+  {
+    id: 81,
+    question: `
+Which movie features a famous character named "Forrest Gump"?`,
+    options: [
+      'A) Forrest Gump',
+      'B) The Shawshank Redemption',
+      'C) The Green Mile',
+      'D) The Godfather',
+    ],
+    answer: 'A) Forrest Gump',
+    category: 'Movie',
+  },
+  {
+    id: 82,
+    question: `
+ Who played the character of Jack Dawson in Titanic?
+`,
+    options: [
+      'A) Johnny Depp',
+      'B) Leonardo DiCaprio',
+      'C) Brad Pitt',
+      'D) Matt Damon',
+    ],
+    answer: 'B) Leonardo DiCaprio',
+    category: 'Movie',
+  },
+  {
+    id: 83,
+    question: `
+   Which movie won the Academy Award for Best Picture in 1994?`,
+    options: [
+      'A) Pulp Fiction',
+      'B) Forrest Gump',
+      'C) The Shawshank ',
+      `D) Schindler's List`,
+    ],
+    answer: 'B) Forrest Gump',
+    category: 'Movie',
+  },
+  {
+    id: 84,
+    question: `
+   Which animated movie features a character named Simba?`,
+    options: [`A) Finding Nemo`, 'B) The Lion King', `C) Aladdin`, 'D) Moana'],
+    answer: `B) The Lion King`,
+    category: 'Movie',
+  },
+  {
+    id: 85,
+    question: `
+   Who directed the movie "Jaws"?
+`,
+    options: [
+      'A) Martin Scorsese',
+      'B) George Lucas',
+      'C) Steven Spielberg',
+      'D) Quentin Tarantino',
+    ],
+    answer: 'C) Steven Spielberg',
+    category: 'Movie',
+  },
+  {
+    id: 86,
+    question: `
+     What is the name of the wizarding school in the Harry Potter series?
+`,
+    options: [
+      'A) Beauxbatons',
+      'B) Durmstrang',
+      'C) Hogwarts',
+      'D) Ilvermorny',
+    ],
+    answer: 'C) Hogwarts',
+    category: 'Movie',
+  },
+  {
+    id: 87,
+    question: `
+   Which movie is known for the quote, "Here's looking at you, kid"?
+`,
+    options: [
+      `A) Citizen Kane`,
+      `B) Casablanca`,
+      `C) Gone with the Wind
+`,
+      `D) The Godfather`,
+    ],
+    answer: `B) Casablanca`,
+    category: 'Movie',
+  },
+  {
+    id: 88,
+    question: `
+   Who played the role of Tony Stark (Iron Man) in the Marvel Cinematic Universe?`,
+    options: [
+      'A) Chris Hemsworth',
+      'B) Robert Downey Jr.',
+      'C) Chris Evans',
+      'D) Mark Ruffalo',
+    ],
+    answer: 'B) Robert Downey Jr.',
+    category: 'Movie',
+  },
+  {
+    id: 89,
+    question: `
+    Which movie is about a young girl who befriends a giant, friendly creature?
+`,
+    options: ['A) The BFG', 'B) E.T.', 'C) Matilda', 'D) The Iron Giant'],
+    answer: 'A) The BFG',
+    category: 'Movie',
+  },
+  {
+    id: 90,
+    question: `
+    Which movie features a robot named WALL-E?`,
+    options: [
+      'A) Up',
+      'B) WALL-E',
+      `C) Big Hero 6
+`,
+      'D) Toy Story',
+    ],
+    answer: 'B) WALL-E',
+    category: 'Movie',
+  },
+  {
+    id: 91,
+    question: `
+  What is the title of the 1997 movie about the sinking of the Titanic?
+`,
+    options: [
+      `A) Titanic
+`,
+      'B) The Boat',
+      'C) Poseidon',
+      `D) Iceberg`,
+    ],
+    answer: `) Titanic`,
+    category: 'Movie',
+  },
+  {
+    id: 92,
+    question: `
+     Who played the role of Joker in "The Dark Knight"?`,
+    options: [
+      'A) Jack Nicholson',
+      'B) Heath Ledger',
+      'C) Jared Leto',
+      'D) Joaquin Phoenix',
+    ],
+    answer: 'B) Heath Ledger',
+    category: 'Movie',
+  },
+  {
+    id: 93,
+    question: `
+  Which movie is based on a novel by J.R.R. Tolkien?
+`,
+    options: [
+      'A) The Hobbit',
+      `B) Harry Potter`,
+      'C) The Chronicles of Narnia',
+      'D) Percy Jackson & the Olympians',
+    ],
+    answer: 'A) The Hobbit',
+    category: 'Movie',
+  },
+  {
+    id: 94,
+    question: `
+  Which movie features a character named "Buzz Lightyear"?
+`,
+    options: [
+      'A) Toy Story',
+      'B) Shrek',
+      'C) Monsters, Inc.',
+      'D) Finding Dory',
+    ],
+    answer: 'A) Toy Story',
+    category: 'Movie',
+  },
+  {
+    id: 95,
+    question: `
+    What is the name of the fictional African country in "Black Panther"?`,
+    options: ['A) Zamunda', 'B) Wakanda', 'C) Genovia', 'D) Elbonia'],
+    answer: 'B) Wakanda',
+    category: 'Movie',
+  },
+  {
+    id: 96,
+    question: `
+   Which 1980s film starred Tom Cruise as a fighter pilot?
+`,
+    options: [
+      'A) Cocktail',
+      'B) Mission: Impossible',
+      'C) Risky Business',
+      'D) Top Gun',
+    ],
+    answer: 'D) Top Gun',
+    category: 'Movie',
+  },
+  {
+    id: 97,
+    question: `
+   Which movie is about a young boy who befriends an alien from another planet?
+`,
+    options: [
+      'A) Close Encounters',
+      'B) Star Wars',
+      'C) E.T. the Extra-Terrestrial',
+      'D) Avatar',
+    ],
+    answer: 'C) E.T. the Extra-Terrestrial',
+    category: 'Movie',
+  },
+  {
+    id: 98,
+    question: `
+    Who played the lead role in the movie "Gladiator"?
+
+
+`,
+    options: [
+      'A) Russell Crowe',
+      'B) Gerard Butler',
+      'C) Hugh Jackman',
+      'D) Tom Hardy',
+    ],
+    answer: 'A) Russell Crowe',
+    category: 'Movie',
+  },
+  {
+    id: 99,
+    question: `
+    What movie features the character "Darth Vader"?
+`,
+    options: [
+      'A) The Matrix',
+      'B) Lord of the Rings',
+      'C) Indiana Jones',
+      'D) Star Wars',
+    ],
+    answer: 'D) Star Wars',
+    category: 'Movie',
+  },
+  {
+    id: 100,
+    question: `
+    What animated movie involves a talking snowman named Olaf?`,
+    options: ['A) Moana', 'B) Frozen', 'C) Tangled', 'D) Brave'],
+    answer: 'B) Frozen',
+    category: 'Movie',
+  },
 ];

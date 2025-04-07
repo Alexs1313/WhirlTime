@@ -17,8 +17,8 @@ const StackNav = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Home">
-      {/* <Stack.Screen name="Onboard" component={Onboard} /> */}
+      initialRouteName="Onboard">
+      <Stack.Screen name="Onboard" component={Onboard} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="NewGame" component={NewGame} />
       <Stack.Screen name="SelectCategory" component={SelectCategory} />
@@ -31,13 +31,5 @@ const StackNav = () => {
     </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default StackNav;

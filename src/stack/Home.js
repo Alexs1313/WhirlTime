@@ -2,11 +2,6 @@ import {Image, SafeAreaView, StyleSheet, View} from 'react-native';
 import ButtonLinear from '../components/ButtonLinear';
 
 const Home = () => {
-  // useEffect(() => {
-  //   AsyncStorage.clear();
-  //   console.log('asyncstorage CLEAR');
-  // }, []);
-
   return (
     <View style={styles.container}>
       <SafeAreaView

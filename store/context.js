@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, useContext, useState} from 'react';
 
 export const StoreContext = createContext();
 
@@ -13,11 +13,6 @@ export const StoreProvider = ({children}) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [randomIdx, setRandomIdx] = useState(0);
   const [playersStore, setPlayersStore] = useState([]);
-
-  // useEffect(() => {
-  //   getPlayers();
-  //   // savePlayers(playersStore);
-  // }, [score]);
 
   const savePlayers = async players => {
     try {
@@ -39,16 +34,6 @@ export const StoreProvider = ({children}) => {
     }
   };
 
-  const removePlayers = async () => {
-    try {
-      await AsyncStorage.removeItem('players');
-
-      console.log('players from storage removed', players);
-    } catch (error) {
-      console.log('err to save players', error);
-    }
-  };
-
   const value = {
     newPlayers,
     setNewPlayers,
@@ -61,7 +46,6 @@ export const StoreProvider = ({children}) => {
     savePlayers,
     getPlayers,
     playersStore,
-    removePlayers,
     setPlayersStore,
   };
   return (

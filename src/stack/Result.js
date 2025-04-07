@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 
 import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
-import {useNavigation} from '@react-navigation/native';
 
 const Result = () => {
   const {playersStore} = useStore();
@@ -20,17 +19,9 @@ const Result = () => {
 
   const onShare = async () => {
     try {
-      const result = await Share.share({
+      await Share.share({
         message: `The winner is ${ascSortedPlayers[0].name} with ${ascSortedPlayers[0].score} scores`,
       });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
     } catch (error) {
       alert(error.message);
     }
@@ -43,13 +34,7 @@ const Result = () => {
       <SafeAreaView style={{alignItems: 'center'}}>
         <GradientText
           colors={['#E7931D', '#F4B821', '#DE7319']}
-          style={{
-            fontWeight: '900',
-            fontFamily: 'MontserratAlternates-bold',
-            fontSize: 32,
-            marginTop: 22,
-            marginBottom: 72,
-          }}>
+          style={styles.gradientText}>
           RESULT
         </GradientText>
       </SafeAreaView>
@@ -80,15 +65,7 @@ const Result = () => {
                   borderRadius: 15,
                   marginBottom: 10,
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingLeft: 15,
-                    paddingRight: 20,
-                    paddingTop: 12,
-                  }}>
+                <View style={styles.scoreWrap}>
                   <Text style={idx === 0 && styles.newPlayerContainerTextFirst}>
                     {player?.name}
                   </Text>
@@ -108,14 +85,7 @@ const Result = () => {
             </TouchableOpacity>
           ),
         )}
-        <View
-          style={{
-            marginTop: 22,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 20,
-          }}>
+        <View style={styles.buttonsWrap}>
           <TouchableOpacity
             onPress={() => {
               navigation.popTo('Home');
@@ -159,6 +129,28 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 24,
     marginBottom: 20,
+  },
+  gradientText: {
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    fontSize: 32,
+    marginTop: 22,
+    marginBottom: 72,
+  },
+  scoreWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 15,
+    paddingRight: 20,
+    paddingTop: 12,
+  },
+  buttonsWrap: {
+    marginTop: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
   },
   buttonText: {
     fontSize: 24,
