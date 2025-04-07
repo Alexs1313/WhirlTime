@@ -10,7 +10,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoader(true);
-    }, 3000);
+    }, 4000);
   }, []);
 
   return (
