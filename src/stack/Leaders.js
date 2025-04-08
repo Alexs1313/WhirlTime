@@ -137,6 +137,10 @@ const Leaders = () => {
             )}
           </View>
         )}
+
+        {/* <View style={{marginTop: 22}}>
+          <ButtonLinear text={'Start Play'} navigateTo={'Game'} />
+        </View> */}
       </View>
     </View>
   );

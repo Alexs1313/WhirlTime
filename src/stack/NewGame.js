@@ -11,14 +11,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TextInput} from 'react-native-gesture-handler';
 
 import LinearGradient from 'react-native-linear-gradient';
-import ButtonLinear from '../components/ButtonLinear';
+
 import GradientText from '../components/TextGradient';
 import {useStore} from '../../store/context';
+import {useNavigation} from '@react-navigation/native';
 
 const NewGame = () => {
   const [inputValue, setInputValue] = useState('');
   const {newPlayers, setNewPlayers, setCategory, setCurrentIdx} = useStore();
   const [toggleInput, setToggleInput] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setNewPlayers([]);
@@ -125,7 +127,16 @@ const NewGame = () => {
         </TouchableOpacity>
         {!toggleInput && (
           <View style={{marginTop: 70}}>
-            <ButtonLinear text={'Next'} navigateTo={'SelectCategory'} />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              disabled={newPlayers.length === 0}
+              onPress={() => navigation.navigate('SelectCategory')}>
+              <LinearGradient
+                colors={['#E7931D', '#F4B821', '#DE7319']}
+                style={styles.linearGradientBtn}>
+                <Text style={styles.buttonTextNext}>Next</Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         )}
       </View>
@@ -234,6 +245,29 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'MontserratAlternates-bold',
     color: '#fff',
+  },
+  linearGradientBtn: {
+    height: 95,
+    width: '100%',
+    borderRadius: 24,
+    marginBottom: 24,
+    shadowColor: 'rgba(179, 179, 179, 0.25)',
+    shadowOffset: {
+      width: 6,
+      height: 7,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 0.5,
+  },
+  buttonTextNext: {
+    fontSize: 24,
+    fontWeight: '900',
+    fontFamily: 'MontserratAlternates-bold',
+    textAlign: 'center',
+    margin: 10,
+    color: '#4A1A13',
+    backgroundColor: 'transparent',
+    marginTop: 33,
   },
 });
 
