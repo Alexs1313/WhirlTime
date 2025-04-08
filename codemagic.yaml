@@ -13,7 +13,7 @@ workflows:
         BUNDLE_ID: com.Whirl.Time
         XCODE_WORKSPACE: WhirlTime.xcworkspace
         XCODE_SCHEME: WhirlTime
-        APP_STORE_APPLE_ID:
+        APP_STORE_APPLE_ID: 6744363166
     scripts:
       - name: Install npm dependencies
         script: |
